@@ -55,6 +55,3 @@ print()
 get_data_cmc('GALA')
 print()
 get_data_cmc('SUI')
-#
-#
-

@@ -2,7 +2,6 @@ import requests
 import datetime
 import time
 
-
 def okex(btc, eth, bnb):
 
     url_btc = f"https://www.okex.com/api/v5/market/ticker?instId={btc}-USDT"
@@ -40,18 +39,18 @@ def okex(btc, eth, bnb):
     bnb_vol = data_bnb['data'][0]['vol24h']
     bnb_vol_dollar = round_number(bnb_vol_dollar)
     bnb_vol = round_number(bnb_vol)
-
-    # return print(
-    #     #     f'Okex:\nThe last price of Bitcoin is {btc_last_price}$\nThe highest price today {btc_high}$'
-    #     #     f'\nThe lowest {btc_low}$\nVolume at the last 24 hours {btc_vol} BTC = {btc_vol_dollar}$'
-    #     #     f'\n'
-    #     #     f'\nThe last price of Ethereum is {eth_last_price}$\nThe highest price today {eth_high}$'
-    #     #     f'\nThe lowest {eth_low}$\nVolume at the last 24 hours {eth_vol} ETH = {eth_vol_dollar}$'
-    #     #     f'\n'
-    #     #     f'\nThe last price of Binance coin is {bnb_last_price}$\nThe highest price today {bnb_high}$'
-    #     #     f'\nThe lowest {bnb_low}$\nVolume at the last 24 hours {bnb_vol} BNB = {bnb_vol_dollar}$'
-    #     # )
-    return print(data_btc)
+    return print(
+            f'Okex:\nThe last price of Bitcoin is {btc_last_price}$\nThe highest price today {btc_high}$'
+            f'\nThe lowest {btc_low}$\nVolume at the last 24 hours {btc_vol} BTC = {btc_vol_dollar}$'
+            f'\n'
+            f'\nThe last price of Ethereum is {eth_last_price}$\nThe highest price today {eth_high}$'
+            f'\nThe lowest {eth_low}$\nVolume at the last 24 hours {eth_vol} ETH = {eth_vol_dollar}$'
+            f'\n'
+            f'\nThe last price of Binance coin is {bnb_last_price}$\nThe highest price today {bnb_high}$'
+            f'\nThe lowest {bnb_low}$\nVolume at the last 24 hours {bnb_vol} BNB = {bnb_vol_dollar}$'
+         )
 okex('BTC','ETH', 'BNB')
 
+# all coins from okex
+url_all= "https://www.okx.com/api/v5/market/tickers?instType=SPOT"
 
