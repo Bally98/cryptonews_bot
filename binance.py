@@ -51,40 +51,53 @@ key = "https://api.binance.com/api/v3/ticker/24hr"
 
 data = requests.get(key)
 data = data.json()
-print(data)
+# print(data)
 
 
-def get_coin_growth(api_key, api_secret):
-    # Замените 'API_KEY' и 'SECRET_KEY' на свои реальные ключи доступа к API Binance
-    api_key = 'ZWhBTWICgxOt67WrNNrP8j4WBKSpnvUj7cwJZ5QXlc6Cs2nM3w7QWZ4PEsQw1MvJ'
-    api_secret = 'DLIHRHgEnOGTYCimOj7qRaGAvj3adA8oG37dVryDcqbxsRiWql4KAPlaKPlqE4Xg'
-
-    # Формирование запроса к API для получения данных о курсах всех торговых пар
+def get_coin_growth():
     url = 'https://api.binance.com/api/v3/ticker/24hr'
     response = requests.get(url)
     data = response.json()
 
-    # Инициализация переменных для хранения информации о наибольшем росте монеты
-    max_percentage_change = 0.0
-    coin_with_max_change = None
+    binance_top_gain_name = ''
+    binance_top_gain_price = 0
+    binance_top_gain_price_change = 0
+    binance_top_gain_vol = 0
 
-    # Обработка данных о курсах всех торговых пар
-    for coin_data in data:
-        symbol = coin_data['symbol']
-        percentage_change = float(coin_data['priceChangePercent'])
+    binance_top_los_name = ''
+    binance_top_los_price = 0
+    binance_top_los_price_change = 0
+    binance_top_los_vol = 0
 
-        # Проверка, является ли текущий процентный рост наибольшим
-        if percentage_change > max_percentage_change:
-            max_percentage_change = percentage_change
-            coin_with_max_change = symbol
+    for i in data:
+        symbol = str(i['symbol'])
+        if symbol.endswith('USDT'):
+            if float(i['priceChangePercent']) > binance_top_gain_price_change:
+                binance_top_gain_name = i['symbol'][:-4]
+                binance_top_gain_price = i['lastPrice']
+                binance_top_gain_price_change = float(i['priceChangePercent'])
+                binance_top_gain_vol = round(float(i['quoteVolume']), 2)
 
-    return coin_with_max_change, max_percentage_change
+            if float(i['priceChangePercent']) < binance_top_los_price_change:
+                binance_top_los_name = i['symbol'][:-4]
+                binance_top_los_price = i['lastPrice']
+                binance_top_los_price_change = float(i['priceChangePercent'])
+                binance_top_los_vol = round(float(i['quoteVolume']), 2)
 
-if __name__ == "__main__":
+    return print(f'Name gain - {binance_top_gain_name}\nPrice:{binance_top_gain_price}$\nChange 24h:{binance_top_gain_price_change}%\n'
+                 f'Volume 24h:{binance_top_gain_vol}\n\n'
+                 f'Name los - {binance_top_los_name}\nPrice:{binance_top_los_price}$\nChange 24h:{binance_top_los_price_change}%\n'
+                 f'Volume 24h:{binance_top_los_vol}')
+get_coin_growth()
+
+# if __name__ == "__main__":
     # Замените 'API_KEY' и 'SECRET_KEY' на свои реальные ключи доступа к API Binance
-    api_key = 'API_KEY'
-    secret_key = 'SECRET_KEY'
+    # api_key = 'ZWhBTWICgxOt67WrNNrP8j4WBKSpnvUj7cwJZ5QXlc6Cs2nM3w7QWZ4PEsQw1MvJ'
+    # secret_key = 'DLIHRHgEnOGTYCimOj7qRaGAvj3adA8oG37dVryDcqbxsRiWql4KAPlaKPlqE4Xg'
 
-    coin, growth = get_coin_growth(api_key, secret_key)
-    print(f"Монета с наибольшим ростом: {coin}")
-    print(f"Рост: {growth}%")
+    # coin, growth = get_coin_growth()
+    # print(f"Монета с наибольшим ростом: {coin}")
+    # print(f"Рост: {growth}%")
+
+
+

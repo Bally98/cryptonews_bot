@@ -4,12 +4,19 @@ import math
 from decimal import *
 
 # random top3 from cmc
-def get_top_10_currencies():
+def get_3_biggest_crypto():
+    top1_name = ''
+    top2_name = ''
+    top3_name = ''
+    top1_volume_24h = 0
+    top2_volume_24h = 0
+    top3_volume_24h = 0
+
     api_key = '3c6565ce-18c1-4496-8727-02b12ece3299'
     url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
     params = {
         'start': 1,
-        'limit': 30,
+        'limit': 50,
         'convert': 'USD'
     }
     headers = {
@@ -17,34 +24,26 @@ def get_top_10_currencies():
     }
     response = requests.get(url, params=params, headers=headers)
     data = response.json()
-    top_30 = data['data']
-    price_list = [i['quote']['USD']['price'] for i in top_30]
-    price_list_2 = []
-    price_list_3 = []
-    for i in price_list:
-        with localcontext(Context(prec=32, rounding=ROUND_05UP,
-                                  Emin=0, Emax=0, clamp=1, capitals=0)):
-            i = Decimal(str(i))
-            price_list_2.append(str(i))
-    for j in range(30):
-        if len(price_list_2[j]) > 22:
-            x = price_list_2[j][:9]
-            price_list_3.append(x)
-        else:
-            x = price_list_2[j][:7]
-            price_list_3.append(x)
-    name_list = [i['name'] for i in top_30]
-    change_list = [round(i['quote']['USD']['percent_change_24h'],2) for i in top_30]
-    volume_list = [round(i['quote']['USD']['volume_24h'],2) for i in top_30]
-    # print(name_list)
-    # print(price_list_3)
-    # print(volume_list)
-    # print(change_list)
-    for value in range(3):
-        x = random.randint(0 ,29)
-        print(f'{name_list[x]} \nPrice: {price_list_3[x]}$\nVolume 24h: '
-              f'{volume_list[x]}$\nChange 24h: {change_list[x]}%\n')
-get_top_10_currencies()
+
+    for i in data['data']:
+
+        if i['quote']['USD']['percent_change_24h'] > top1_volume_24h:
+            top3_volume_24h = top2_volume_24h
+            top2_volume_24h = top1_volume_24h
+            top1_volume_24h = round(float(i['quote']['USD']['percent_change_24h']),2)
+            top1_name = i['name']
+        elif i['quote']['USD']['percent_change_24h'] > top2_volume_24h:
+            top3_volume_24h = top2_volume_24h
+            top2_volume_24h = round(float(i['quote']['USD']['percent_change_24h']),2)
+            top2_name = i['name']
+        elif i['quote']['USD']['percent_change_24h'] > top3_volume_24h:
+            top3_volume_24h = round(float(i['quote']['USD']['percent_change_24h']),2)
+            top3_name = i['name']
+
+    return print(f'Top 1 - {top1_name}:{top1_volume_24h}\nTop 2 - {top2_name}:'
+                 f'{top2_volume_24h}\nTop 3 - {top3_name}:{top3_volume_24h}\n ')
+
+get_3_biggest_crypto()
 
 
 
