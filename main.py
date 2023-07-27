@@ -27,7 +27,6 @@ def main():
     headers_cmc = {
         'X-CMC_PRO_API_KEY': api_key_cmc
     }
-
     params_cmc = {
         'start': 1,
         'limit': 50,
@@ -38,15 +37,10 @@ def main():
     data_coinbase = requests.get(url_coinbase, headers=headers_coinbase).json()
     data_okex = requests.get(url_okex).json()
     def get_cap_cmc(coin):
-        parameters_cmc_cap = {
-            'symbol': f'{coin}',
-        }
-        headers_cmc_cap = {
-            'Accepts': 'application/json',
-            'X-CMC_PRO_API_KEY': '3c6565ce-18c1-4496-8727-02b12ece3299',
-        }
-        cap = requests.get(url_cap, params=parameters_cmc_cap, headers=headers_cmc_cap).json()
-        return float(cap['data'][f'{coin}']['quote']['USD']['market_cap'])
+        for j in data_cmc['data']:
+            if j['symbol'] == coin:
+                return j['quote']['USD']['market_cap']
+                break
 
     def cut(num):
         num = round(num, 2)
@@ -107,12 +101,12 @@ def main():
         for value_binance in data_binance:
             symbol_binance = str(value_binance['symbol'])
             if symbol_binance.endswith('USDT'):
-                if round(float(i['quoteVolume']), 2) > binance_top_gain_vol:
+                if round(float(value_binance['quoteVolume']), 2) > binance_top_gain_vol:
                     binance_top_gain_name = value_binance['symbol'][:-4]
                     binance_top_gain_price = value_binance['lastPrice']
                     binance_top_gain_price_change = float(value_binance['priceChangePercent'])
                     binance_top_gain_vol = cut(float(value_binance['quoteVolume']))
-                if round(float(i['quoteVolume']), 2) < binance_top_gain_vol:
+                if round(float(value_binance['quoteVolume']), 2) < binance_top_gain_vol:
                     binance_top_los_name = value_binance['symbol'][:-4]
                     binance_top_los_price = value_binance['lastPrice']
                     binance_top_los_price_change = float(value_binance['priceChangePercent'])
@@ -159,7 +153,7 @@ def main():
                 f'{binance_top_los_name}:{binance_top_los_price}$,{binance_top_los_price_change}%\nVolume:{binance_top_los_vol}$ Via Binance\n\n'
                 f'{cb_top_los_name}:{cb_top_los_price}$,{cb_top_los_price_change}%\nVolume:{cb_top_los_vol}$ Via CoinBase')
 
-    def price_hike_drop():
+    def price_hike_drop(command):
         binance_hike_name = ''
         binance_hike_percent_change = 0
         binance_hike_cap = 0
@@ -220,11 +214,34 @@ def main():
                     okex_drop_percent_change = round(
                         (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
                     okex_drop_cap = get_cap_cmc(str(okex_drop_name))
+        if command == 'hike':
+            return print(f'Biggest price hike today:\n'
+                         f'Binance:{binance_hike_name}: +{binance_hike_percent_change}\n(Market cap for now:{binance_hike_cap})\n'
+                         f'CoinBase:{cb_hike_name}: +{cb_hike_percent_change}\n(Market cap for now:{cb_hike_cap})\n'
+                         f'OKEX:{okex_hike_name}: +{okex_hike_percent_change}\n(Market cap for now:{okex_hike_cap})')
+        elif command == 'drop':
+            return print(f'Biggest price hike today:\n'
+                         f'Binance:{binance_drop_name}: +{binance_drop_percent_change}\n(Market cap for now:{binance_drop_cap})\n'
+                         f'CoinBase:{cb_drop_name}: +{cb_drop_percent_change}\n(Market cap for now:{cb_drop_cap})\n'
+                         f'OKEX:{okex_drop_name}: +{okex_drop_percent_change}\n(Market cap for now:{okex_drop_cap})')
+
+
     def top_5_cap():
-        top_caps = []
+        top_caps = [[],[],[],[],[]]
         for top5 in range(5):
             top_caps[top5].insert(0, str(data['data'][top5]['symbol']))
             top_caps[top5].insert(1, str(data['data'][top5]['quote']['USD']['price']))
             top_caps[top5].insert(2, str(data['data'][top5]['quote']['USD']['percent_change_24h']))
             top_caps[top5].insert(3, str(data['data'][top5]['quote']['USD']['volume_24h']))
-        return print(f'{top_caps}')
+        for k in range(5):
+            print(f'Top volume\n*{top_caps[k][0]}: {top_caps[k][1]}$  {top_caps[k][2]}%\nVolume 24h: {top_caps[k][3]}$')
+
+    get_3_biggest_crypto()
+    gainers_losers('gainers')
+    price_hike_drop('hike')
+    iners_losers('losers')
+    price_hike_drop('drop')
+    top_5_cap()
+main()
+
+

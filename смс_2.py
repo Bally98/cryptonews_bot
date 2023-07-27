@@ -41,17 +41,7 @@ def get_3_biggest_crypto():
     #         top3_name = i['name']
     # return print(f'Top 1 - {top1_name}:{top1_volume_24h}\nTop 2 - {top2_name}:'
     #              f'{top2_volume_24h}\nTop 3 - {top3_name}:{top3_volume_24h}\n ')
-    top_caps = [[], [], [], [], []]
-    def top_5_cap():
-
-        for top5 in range(5):
-            top_caps[top5].insert(0, str(data['data'][top5]['symbol']))
-            top_caps[top5].insert(1, str(data['data'][top5]['quote']['USD']['price']))
-            top_caps[top5].insert(2, str(data['data'][top5]['quote']['USD']['percent_change_24h']))
-            top_caps[top5].insert(3, str(data['data'][top5]['quote']['USD']['volume_24h']))
-        return print(top_caps)
-    top_5_cap()
-
+    return print(data)
 
 
 
