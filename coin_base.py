@@ -30,31 +30,28 @@ def get_value_coinbase():
     top_los_name = None
     top_los_price = 0
     top_los_price_change = 0
-    top_los_vol = 0
-    # for i in range(600, 720):
-    #     a = data['products'][i]['price_percentage_change_24h']
-    #     a = float(a)
-    #     print(type(a), a)
-
-    for i in data['products']:
-        if 'USDT' or 'USDC' or 'USD' in i['quote_currency_id']:
-            x = i['price_percentage_change_24h']
-            if x != '':
-                x = float(x)
-                if x > top_gain_price_change:
-                    top_gain_name = str(i['base_currency_id'])
-                    top_gain_price = str(i['price'])
-                    top_gain_price_change = round(float(i['price_percentage_change_24h']), 3)
-                    top_gain_vol = round(float(i['volume_24h']), 2)
-
-                if x < top_los_price_change:
-                    top_los_name = str(i['base_currency_id'])
-                    top_los_price = str(i['price'])
-                    top_los_price_change = round(float(i['price_percentage_change_24h']), 3)
-                    top_los_vol = round(float(i['volume_24h']), 2)
-    return print(f'Top gainer:\n{top_gain_name}\nPrice {top_gain_price}$\nPrice change +'
-                 f'{top_gain_price_change}%\nVolume 24h {top_gain_vol}$\n\nTop loser\n{top_los_name}\nPrice '
-                 f'{top_los_price}$\nPrice change {top_los_price_change}%\nVolume 24h {top_los_vol}$')
+    top_los_vol = 999999999999999
+    return print(data['products'][:10])
+    # for i in data['products']:
+    #     symbol = str(i['quote_currency_id'])
+    #     if symbol.endswith('USD'):
+    #         x = i['price_percentage_change_24h']
+    #         if x != '':
+    #             volume_dol = float(i['volume_24h']) * float(i['price'])
+    #             if volume_dol > top_gain_vol:
+    #                 top_gain_name = str(i['base_currency_id'])
+    #                 top_gain_price = str(i['price'])
+    #                 top_gain_price_change = round(float(i['price_percentage_change_24h']), 3)
+    #                 top_gain_vol = round(volume_dol, 2)
+    #
+    #             if volume_dol < top_los_vol and volume_dol != 0:
+    #                 top_los_name = str(i['base_currency_id'])
+    #                 top_los_price = str(i['price'])
+    #                 top_los_price_change = round(float(i['price_percentage_change_24h']), 3)
+    #                 top_los_vol = round(volume_dol, 2)
+    # return print(f'Top gainer:\n{top_gain_name}\nPrice {top_gain_price}$\nPrice change '
+    #              f'{top_gain_price_change}%\nVolume 24h {top_gain_vol}$\n\nTop loser\n{top_los_name}\nPrice '
+    #              f'{top_los_price}$\nPrice change {top_los_price_change}%\nVolume 24h {top_los_vol}$')
 
 get_value_coinbase()
 
