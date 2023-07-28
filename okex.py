@@ -57,33 +57,50 @@ def get_data_okex():
     top_gain_price = 0
     top_gain_price_change = 0
     top_gain_vol = 0
-
     top_los_name = None
     top_los_price = 0
     top_los_price_change = 0
     top_los_vol = 0
-
     url= "https://www.okx.com/api/v5/market/tickers?instType=SPOT"
     response = requests.get(url)
     data = response.json()
-    return print(data['data'][:10])
-    # for i in data['data']:
-    #     if 'USDT' or 'USDC' in i ['instId']:
-    #         if float(i['last']) / float(i['open24h']) * 100 - 100 > top_gain_price_change:
-    #             x = i['instId'].index('-')
-    #             top_gain_name = str(i['instId'][:x])
-    #             top_gain_price = str(i['last'])
-    #             top_gain_price_change = round((float(i['last']) / float(i['open24h']) * 100 - 100),2)
-    #             top_gain_vol = round(float(i['vol24h']), 2)
-    #
-    #         if float(i['last']) / float(i['open24h']) * 100 - 100 < top_los_price_change:
-    #             y = i['instId'].index('-')
-    #             top_los_name = str(i['instId'][:y])
-    #             top_los_price = str(i['last'])
-    #             top_los_price_change = round((float(i['last']) / float(i['open24h']) * 100 - 100),2)
-    #             top_los_vol = round(float(i['vol24h']), 2)
-    # return print(f'Top gainer:\n{top_gain_name}\nPrice {top_gain_price}$\nPrice change +'
-    #              f'{top_gain_price_change}%\nVolume 24h {top_gain_vol}$\n\nTop loser\n{top_los_name}\nPrice '
-    #              f'{top_los_price}$\nPrice change {top_los_price_change}%\nVolume 24h {top_los_vol}$')
-get_data_okex()
+    # return print(data['data'][:10])
 
+
+
+    for i in data['data']:
+        symbol_okex = i['instId']
+        if symbol_okex.endswith('USDT')  or symbol_okex.endswith('USDC'):
+            if float(i['last']) / float(i['open24h']) * 100 - 100 > top_gain_price_change:
+                x = i['instId'].index('-')
+                top_gain_name = str(i['instId'][:x])
+                top_gain_price = str(i['last'])
+                top_gain_price_change = round((float(i['last']) / float(i['open24h']) * 100 - 100),2)
+                top_gain_vol = round(float(i['vol24h']), 2)
+            if float(i['last']) / float(i['open24h']) * 100 - 100 < top_los_price_change:
+                y = i['instId'].index('-')
+                top_los_name = str(i['instId'][:y])
+                top_los_price = str(i['last'])
+                top_los_price_change = round((float(i['last']) / float(i['open24h']) * 100 - 100),2)
+                top_los_vol = round(float(i['vol24h']), 2)
+
+
+
+    return print(f'{top_gain_name} +{top_gain_price_change}%\n'
+                 f'{top_los_name} {top_los_price_change}%')
+get_data_okex()
+# for value_okex in data_okex['data']:
+#     symbol_okex = value_okex['instId']
+#     if symbol_okex.endswith('USDT'):
+#         if float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100 > okex_hike_percent_change:
+#             x = value_okex['instId'].index('-')
+#             okex_hike_name = str(value_okex['instId'][:x])
+#             kex_hike_percent_change = round(
+#                 (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
+#             okex_hike_cap = get_cap_cmc(str(okex_hike_name))
+#         if float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100 < okex_drop_percent_change:
+#             x = value_okex['instId'].index('-')
+#             okex_drop_name = str(value_okex['instId'][:x])
+#             okex_drop_percent_change = round(
+#                 (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
+#             okex_drop_cap = get_cap_cmc(str(okex_drop_name))
