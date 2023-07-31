@@ -1,10 +1,14 @@
 import requests
+from requests import Request, Session
+from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import certifi
 import json, hmac, hashlib, time, base64
 from datetime import datetime, timedelta
 import datetime as DT
+
+
 def main():
     url_cmc = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
     url_binance = 'https://api.binance.com/api/v3/ticker/24hr'
@@ -13,11 +17,16 @@ def main():
 
     api_key_cmc = '3c6565ce-18c1-4496-8727-02b12ece3299'
     secretKey_coinbase = 'RjPwUtqwix3h6Nr0ng9ekjHyJh53ZIJh'
+    api_key_binance = 'ZWhBTWICgxOt67WrNNrP8j4WBKSpnvUj7cwJZ5QXlc6Cs2nM3w7QWZ4PEsQw1MvJ'
+    api_secret_binance = 'DLIHRHgEnOGTYCimOj7qRaGAvj3adA8oG37dVryDcqbxsRiWql4KAPlaKPlqE4Xg'
 
     timestamp = str(int(time.time()))
     payload = timestamp + "GET" + "/api/v3/brokerage/products".split('?')[0] + ""
     signature = hmac.new(secretKey_coinbase.encode('utf-8'), payload.encode('utf-8'), digestmod=hashlib.sha256).digest()
-
+    headers_binance = {
+            'X-MBX-APIKEY': api_key_binance,
+            'X-MBX-SECRETKEY': api_secret_binance
+        }
     headers_coinbase = {
         'Content-Type': 'application/json',
         'CB-ACCESS-KEY': '3uvoymeXCMUqcfo2',
@@ -34,21 +43,21 @@ def main():
     }
     data_cmc_cap = requests.get(url_cmc, params=params_cmc, headers=headers_cmc).json()
     data_cmc = requests.get(url_cmc, params=params_cmc, headers=headers_cmc).json()
-    data_binance = requests.get(url_binance).json()
+    data_binance = requests.get(url_binance, headers=headers_binance).json()
     data_coinbase = requests.get(url_coinbase, headers=headers_coinbase).json()
     data_okex = requests.get(url_okex).json()
+
     def get_cap_cmc(coin):
-        parameters = {
-            'symbol': f'{coin}',
-        }
         headers = {
             'Accepts': 'application/json',
             'X-CMC_PRO_API_KEY': '3c6565ce-18c1-4496-8727-02b12ece3299',
         }
-        url_cmc_cap = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
-        data_cmc_cap = requests.get(url_cmc, params=params_cmc, headers=headers_cmc).json()
-        return float(round(data_cmc_cap['data'][f'{coin}']['quote']['USD']['market_cap']))
-
+        url_cmc_cap = f'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol={coin}'
+        data_cmc_cap = requests.get(url_cmc_cap, headers=headers).json()
+        if float(round(data_cmc_cap['data'][f'{coin}']['quote']['USD']['market_cap'])) == 0 or '0':
+            return float(round(data_cmc_cap['data'][f'{coin}']['quote']['USD']['fully_diluted_market_cap']))
+        else:
+            return float(round(data_cmc_cap['data'][f'{coin}']['quote']['USD']['market_cap']))
 
     def cut(num):
         num = round(num, 2)
@@ -189,11 +198,11 @@ def main():
                 if float(value_binance['priceChangePercent']) > binance_hike_percent_change:
                     binance_hike_name = value_binance['symbol'][:-4]
                     binance_hike_percent_change = float(value_binance['priceChangePercent'])
-                    binance_hike_cap = get_cap_cmc(str(binance_hike_name))
+                    binance_hike_cap = get_cap_cmc(binance_hike_name)
                 if float(value_binance['priceChangePercent']) < binance_drop_percent_change:
                     binance_drop_name = value_binance['symbol'][:-4]
                     binance_drop_percent_change = float(value_binance['priceChangePercent'])
-                    binance_drop_cap = get_cap_cmc(str(binance_drop_name))
+                    binance_drop_cap = get_cap_cmc(binance_drop_name)
         for value_cb in data_coinbase['products']:
             symbol_cb = str(value_cb['quote_currency_id'])
             if symbol_cb.endswith('USDT'):
@@ -202,11 +211,11 @@ def main():
                     if float(x) > cb_hike_percent_change:
                         cb_hike_name = str(value_cb['base_currency_id'])
                         cb_hike_percent_change = round(float(value_cb['price_percentage_change_24h']), 3)
-                        cb_hike_cap = get_cap_cmc(str(cb_hike_name))
+                        cb_hike_cap = get_cap_cmc(cb_hike_name)
                     if float(x) < cb_drop_percent_change:
                         cb_drop_name = str(value_cb['base_currency_id'])
                         cb_drop_percent_change = round(float(value_cb['price_percentage_change_24h']), 3)
-                        cb_drop_cap = get_cap_cmc(str(cb_drop_name))
+                        cb_drop_cap = get_cap_cmc(cb_drop_name)
         for value_okex in data_okex['data']:
             symbol_okex = value_okex['instId']
             if symbol_okex.endswith('USDT') or symbol_okex.endswith('USDC'):
@@ -215,13 +224,14 @@ def main():
                     okex_hike_name = str(value_okex['instId'][:x])
                     okex_hike_percent_change = round(
                         (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
-                    okex_hike_cap = get_cap_cmc(str(okex_hike_name))
+                    okex_hike_cap = get_cap_cmc(okex_hike_name)
                 if float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100 < okex_drop_percent_change:
                     x = value_okex['instId'].index('-')
                     okex_drop_name = str(value_okex['instId'][:x])
                     okex_drop_percent_change = round(
                         (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
-                    okex_drop_cap = get_cap_cmc(str(okex_drop_name))
+                    okex_drop_cap = get_cap_cmc(okex_drop_name)
+
         if command == 'hike':
             return print(f'Biggest price hike today:\n'
                          f'Binance:{binance_hike_name}: +{binance_hike_percent_change}%\n(Market cap for now:{binance_hike_cap})\n\n'

@@ -72,35 +72,30 @@ def get_coin_growth():
         cap = requests.get(url_cap, params=parameters, headers=headers).json()
         return cap['data'][f'{symbol}']['quote']['USD']['market_cap']
 
-    binance_top_gain_name = ''
-    binance_top_gain_price = 0
-    binance_top_gain_price_change = 0
-    binance_top_gain_vol = 0
-
-    binance_top_los_name = ''
-    binance_top_los_price = 0
-    binance_top_los_price_change = 0
-    binance_top_los_vol = 0
+    binance_hike_name = ''
+    binance_hike_percent_change = 0
+    binance_hike_cap = 0
+    binance_drop_name = ''
+    binance_drop_percent_change = 999
+    binance_drop_cap = 0
     # return print(data[:20])
-    for i in data:
-        symbol = str(i['symbol'])
-        if symbol.endswith('USD'):
-            if round(float(i['quoteVolume']), 2) > binance_top_gain_vol:
-                binance_top_gain_name = i['symbol'][:-3]
-                binance_top_gain_price = i['lastPrice']
-                binance_top_gain_price_change = float(i['priceChangePercent'])
-                binance_top_gain_vol = round(float(i['quoteVolume']), 2)
+    for value_binance in data:
+        symbol_binance = str(value_binance['symbol'])
+        if symbol_binance.endswith('USDT'):
+            if float(value_binance['priceChangePercent']) > binance_hike_percent_change:
+                binance_hike_name = value_binance['symbol'][:-4]
+                binance_hike_percent_change = float(value_binance['priceChangePercent'])
+                # binance_hike_cap = get_cap_cmc(binance_hike_name)
+            if float(value_binance['priceChangePercent']) < binance_drop_percent_change:
+                binance_drop_name = value_binance['symbol'][:-4]
+                binance_drop_percent_change = float(value_binance['priceChangePercent'])
+                # binance_drop_cap = get_cap_cmc(binance_drop_name)
+    print(binance_hike_name, binance_drop_name)
 
-            if round(float(i['quoteVolume']), 2) < binance_top_los_vol and round(float(i['quoteVolume']), 2) != 0:
-                binance_top_los_name = i['symbol'][:-3]
-                binance_top_los_price = i['lastPrice']
-                binance_top_los_price_change = float(i['priceChangePercent'])
-                binance_top_los_vol = round(float(i['quoteVolume']), 2)
-
-    return print(f'Name gain - {binance_top_gain_name}\nPrice:{binance_top_gain_price}$\nChange 24h:{binance_top_gain_price_change}%\n'
-                 f'Volume 24h:{binance_top_gain_vol}\n\n'
-                 f'Name los - {binance_top_los_name}\nPrice:{binance_top_los_price}$\nChange 24h:{binance_top_los_price_change}%\n'
-                 f'Volume 24h:{binance_top_los_vol}')
+    # return print(f'Name gain - {binance_top_gain_name}\nPrice:{binance_top_gain_price}$\nChange 24h:{binance_top_gain_price_change}%\n'
+    #              f'Volume 24h:{binance_top_gain_vol}\n\n'
+    #              f'Name los - {binance_top_los_name}\nPrice:{binance_top_los_price}$\nChange 24h:{binance_top_los_price_change}%\n'
+    #              f'Volume 24h:{binance_top_los_vol}')
 get_coin_growth()
 
 # if __name__ == "__main__":
