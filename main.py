@@ -153,7 +153,7 @@ def main():
                     okex_top_gain_price_change = round(
                         (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
                     okex_top_gain_vol = round(float(value_okex['volCcy24h']), 2)
-                if float(value_okex['volCcy24h']) > okex_top_gain_vol:
+                if float(value_okex['volCcy24h']) < okex_top_gain_vol:
                     x = value_okex['instId'].index('-')
                     okex_top_los_name = str(value_okex['instId'][:x])
                     okex_top_los_price = str(value_okex['last'])
@@ -198,11 +198,9 @@ def main():
                 if float(value_binance['priceChangePercent']) > binance_hike_percent_change:
                     binance_hike_name = value_binance['symbol'][:-4]
                     binance_hike_percent_change = float(value_binance['priceChangePercent'])
-                    binance_hike_cap = get_cap_cmc(binance_hike_name)
                 if float(value_binance['priceChangePercent']) < binance_drop_percent_change:
                     binance_drop_name = value_binance['symbol'][:-4]
                     binance_drop_percent_change = float(value_binance['priceChangePercent'])
-                    binance_drop_cap = get_cap_cmc(binance_drop_name)
         for value_cb in data_coinbase['products']:
             symbol_cb = str(value_cb['quote_currency_id'])
             if symbol_cb.endswith('USDT'):
@@ -211,11 +209,9 @@ def main():
                     if float(x) > cb_hike_percent_change:
                         cb_hike_name = str(value_cb['base_currency_id'])
                         cb_hike_percent_change = round(float(value_cb['price_percentage_change_24h']), 3)
-                        cb_hike_cap = get_cap_cmc(cb_hike_name)
                     if float(x) < cb_drop_percent_change:
                         cb_drop_name = str(value_cb['base_currency_id'])
                         cb_drop_percent_change = round(float(value_cb['price_percentage_change_24h']), 3)
-                        cb_drop_cap = get_cap_cmc(cb_drop_name)
         for value_okex in data_okex['data']:
             symbol_okex = value_okex['instId']
             if symbol_okex.endswith('USDT') or symbol_okex.endswith('USDC'):
@@ -224,14 +220,17 @@ def main():
                     okex_hike_name = str(value_okex['instId'][:x])
                     okex_hike_percent_change = round(
                         (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
-                    okex_hike_cap = get_cap_cmc(okex_hike_name)
                 if float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100 < okex_drop_percent_change:
                     x = value_okex['instId'].index('-')
                     okex_drop_name = str(value_okex['instId'][:x])
                     okex_drop_percent_change = round(
                         (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
-                    okex_drop_cap = get_cap_cmc(okex_drop_name)
-
+        binance_hike_cap = get_cap_cmc(binance_hike_name)
+        binance_drop_cap = get_cap_cmc(binance_drop_name)
+        cb_hike_cap = get_cap_cmc(cb_hike_name)
+        cb_drop_cap = get_cap_cmc(cb_drop_name)
+        okex_hike_cap = get_cap_cmc(okex_hike_name)
+        okex_drop_cap = get_cap_cmc(okex_drop_name)
         if command == 'hike':
             return print(f'Biggest price hike today:\n'
                          f'Binance:{binance_hike_name}: +{binance_hike_percent_change}%\n(Market cap for now:{binance_hike_cap})\n\n'
@@ -242,7 +241,6 @@ def main():
                          f'Binance:{binance_drop_name}: {binance_drop_percent_change}%\n(Market cap for now:{binance_drop_cap})\n\n'
                          f'CoinBase:{cb_drop_name}: {cb_drop_percent_change}%\n(Market cap for now:{cb_drop_cap})\n\n'
                          f'OKEX:{okex_drop_name}: {okex_drop_percent_change}%\n(Market cap for now:{okex_drop_cap})\n\n')
-
 
     def top_5_cap():
         top_caps = [[],[],[],[],[]]

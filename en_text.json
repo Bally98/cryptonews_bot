@@ -1,0 +1,62 @@
+{
+    "title":{
+        "1":"<h1>Cryptobot</h1>"
+    },
+    "0":{
+        "title":{
+            "0":"<h2>The biggest cryptos of the last 24h</h2>"
+        },
+        "main_text":{
+            "0":"<p><ul>{top1_name}:{top1_volume_24h}</ul></p>\n<p><ul>{top2_name}:{top2_volume_24h}</ul></p>\n<p><ul>{top3_name}:{top3_volume_24h}</ul></p>\n"
+        }
+    },
+    "1":{
+        "title":{
+            "0":"<p><h2>Every day we look through the data from the biggest crypto exchanges to collect the most important stat about cryptos</h2></p>"
+        },
+        "main_text":{
+            "0":"<p><strong>Top gainers</strong></p>\n<p><ul>{binance_top_gain_name}:{binance_top_gain_price}$, {binance_top_gain_price_change}%, {binance_top_gain_vol}(via Binance)</ul></p>\n<p><ul>{cb_top_gain_name}:{cb_top_gain_price}$, {cb_top_gain_price_change}%, {cb_top_gain_vol}(via Coinbase)</ul></p>\n<p><ul>{okex_top_gain_name}:{okex_top_gain_price}$, {okex_top_gain_price_change}%, {okex_top_gain_vol}(via OKEX)</ul></p>"
+
+        }
+    },
+    "2":{
+        "title":{
+            "0":"<p><strong>The biggest price hike today:</strong></p>"
+        },
+        "main_text":{
+            "0":"<p><ul>Binance:{binance_hike_name} {binance_hike_percent_change}%(market cap for now-{binance_hike_cap})</ul></p>\n<p><ul>Coinbase:{cb_hike_name} {cb_hike_percent_change}%(market cap for now-{cb_hike_cap})</ul></p>\n<p><ul>OKEX:{okex_hike_name} {okex_hike_percent_change}%(market cap for now-{okex_hike_cap})</ul></p>\n"
+        }
+    },
+    "3":{
+        "title":{
+            "0":""
+        },
+        "main_text":{
+            "0":"<p><strong>Top losers</strong></p>\n<p><ul>{binance_top_los_name}:{binance_top_los_price}$, {binance_top_los_price_change}%, {binance_top_los_vol}(via Binance)</ul></p>\n<p><ul>{cb_top_los_name}:{cb_top_los_price}$, {cb_top_los_price_change}%, {cb_top_los_vol}(via Coinbase)</ul></p>\n<p><ul>{okex_top_los_name}:{okex_top_los_price}$, {okex_top_los_price_change}%, {okex_top_los_vol}(via OKEX)</ul></p>"
+        }
+    },
+    "4":{
+        "title":{
+            "0":"<p><strong>The biggest price drop today:</strong></p>"
+        },
+        "main_text":{
+            "0":"<p><ul>Binance:{binance_drop_name} {binance_drop_percent_change}%(market cap for now-{binance_drop_cap})</ul></p>\n<p><ul>Coinbase:{cb_drop_name} {cb_drop_percent_change}%(market cap for now-{cb_drop_cap})</ul></p>\n<p><ul>OKEX:{okex_drop_name} {okex_drop_percent_change}%(market cap for now-{okex_drop_cap})</ul></p>"
+        }
+    },
+    "5":{
+        "title":{
+            "0":"<p><strong>Top volume</strong></p>"
+        },
+        "main_text":{
+            "0":"<p><ul>{top_caps[0][0]}:{top_caps[0][1]}$, {top_caps[0][2]}%, {top_caps[0][3]}%</ul></p>\n<p><ul>{top_caps[1][0]}:{top_caps[1][1]}$, {top_caps[1][2]}%, {top_caps[1][3]}%</ul></p>\n<p><ul>{top_caps[2][0]}:{top_caps[2][1]}$, {top_caps[2][2]}%, {top_caps[2][3]}%</ul></p>\n"
+        }
+    }
+}
+
+
+
+
+
+
+
+
