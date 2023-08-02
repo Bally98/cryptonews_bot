@@ -259,6 +259,6 @@ def main():
     gainers_losers('losers')
     price_hike_drop('drop')
     top_5_cap()
-main()
+# main()
 
 

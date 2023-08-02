@@ -63,6 +63,10 @@ def main():
         num = round(num, 2)
         return num
 
+    def format_number(num):
+        formatted_num = "{:,.0f}".format(num).replace(',', '.')
+        return formatted_num
+
     top1_name = ''
     top2_name = ''
     top3_name = ''
@@ -114,16 +118,17 @@ def main():
     for value_binance in data_binance:
         symbol_binance = str(value_binance['symbol'])
         if symbol_binance.endswith('USDT') or symbol_binance.endswith('USD') or symbol_binance.endswith('USDC'):
-            if round(float(value_binance['quoteVolume']), 2) > binance_top_gain_vol:
+            if round(float(value_binance['quoteVolume']), 2) > float(binance_top_gain_vol):
                 binance_top_gain_name = value_binance['symbol'][:-4]
-                binance_top_gain_price = value_binance['lastPrice']
+                binance_top_gain_price = cut(float(value_binance['lastPrice']))
                 binance_top_gain_price_change = float(value_binance['priceChangePercent'])
-                binance_top_gain_vol = cut(float(value_binance['quoteVolume']))
-            if round(float(value_binance['quoteVolume']), 2) < binance_top_gain_vol:
-                binance_top_los_name = value_binance['symbol'][:-4]
-                binance_top_los_price = value_binance['lastPrice']
-                binance_top_los_price_change = float(value_binance['priceChangePercent'])
-                binance_top_los_vol = cut(float(value_binance['quoteVolume']))
+                binance_top_gain_vol = round(float(value_binance['quoteVolume']))
+            if round(float(value_binance['quoteVolume']), 2) < float(binance_top_los_vol):
+                if float(value_binance['lastPrice']) > 0:
+                    binance_top_los_name = value_binance['symbol'][:-4]
+                    binance_top_los_price = round(float(value_binance['lastPrice']), 4)
+                    binance_top_los_price_change = float(value_binance['priceChangePercent'])
+                    binance_top_los_vol = cut(float(value_binance['quoteVolume']))
     for value_cb in data_coinbase['products']:
         symbol_cb = str(value_cb['quote_currency_id'])
         if symbol_cb.endswith('USDT') or symbol_binance.endswith('USD') or symbol_binance.endswith('USDC'):
@@ -131,31 +136,31 @@ def main():
                 volume_cb = float(value_cb['volume_24h']) * float(value_cb['price'])
                 if volume_cb > cb_top_gain_vol:
                     cb_top_gain_name = str(value_cb['base_currency_id'])
-                    cb_top_gain_price = float(value_cb['price'])
+                    cb_top_gain_price = cut(float(value_cb['price']))
                     cb_top_gain_price_change = round(float(value_cb['price_percentage_change_24h']), 3)
-                    cb_top_gain_vol = volume_cb
+                    cb_top_gain_vol = round(volume_cb)
                 if volume_cb < cb_top_gain_vol:
                     cb_top_los_name = str(value_cb['base_currency_id'])
-                    cb_top_los_price = float(value_cb['price'])
+                    cb_top_los_price = round(float(value_cb['price']), 4)
                     cb_top_los_price_change = round(float(value_cb['price_percentage_change_24h']), 3)
-                    cb_top_los_vol = volume_cb
+                    cb_top_los_vol = cut(volume_cb)
     for value_okex in data_okex['data']:
         symbol_okex = value_okex['instId']
         if symbol_okex.endswith('USDT') or symbol_binance.endswith('USD') or symbol_binance.endswith('USDC'):
             if float(value_okex['volCcy24h']) > okex_top_gain_vol:
                 x = value_okex['instId'].index('-')
                 okex_top_gain_name = str(value_okex['instId'][:x])
-                okex_top_gain_price = str(value_okex['last'])
+                okex_top_gain_price = cut(float(value_okex['last']))
                 okex_top_gain_price_change = round(
                     (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
-                okex_top_gain_vol = round(float(value_okex['volCcy24h']), 2)
-            if float(value_okex['volCcy24h']) < okex_top_gain_vol:
+                okex_top_gain_vol = round(float(value_okex['volCcy24h']))
+            if float(value_okex['volCcy24h']) < okex_top_los_vol:
                 x = value_okex['instId'].index('-')
                 okex_top_los_name = str(value_okex['instId'][:x])
-                okex_top_los_price = str(value_okex['last'])
+                okex_top_los_price = round(float(value_okex['last']), 4)
                 okex_top_los_price_change = round(
                     (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
-                okex_top_los_vol = round(float(value_okex['volCcy24h']), 2)
+                okex_top_los_vol = cut(float(value_okex['volCcy24h']))
 
     binance_hike_name = ''
     binance_hike_percent_change = 0
@@ -211,59 +216,67 @@ def main():
                 okex_drop_name = str(value_okex['instId'][:x])
                 okex_drop_percent_change = round(
                     (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
-    binance_hike_cap = get_cap_cmc(binance_hike_name)
-    binance_drop_cap = get_cap_cmc(binance_drop_name)
-    cb_hike_cap = get_cap_cmc(cb_hike_name)
-    cb_drop_cap = get_cap_cmc(cb_drop_name)
-    okex_hike_cap = get_cap_cmc(okex_hike_name)
-    okex_drop_cap = get_cap_cmc(okex_drop_name)
+    binance_hike_cap = format_number(get_cap_cmc(binance_hike_name))
+    binance_drop_cap = format_number(get_cap_cmc(binance_drop_name))
+    cb_hike_cap = format_number(get_cap_cmc(cb_hike_name))
+    cb_drop_cap = format_number(get_cap_cmc(cb_drop_name))
+    okex_hike_cap = format_number(get_cap_cmc(okex_hike_name))
+    okex_drop_cap = format_number(get_cap_cmc(okex_drop_name))
+    binance_top_gain_vol = format_number(binance_top_gain_vol)
+    cb_top_gain_vol = format_number(cb_top_gain_vol)
+    okex_top_gain_vol = format_number(okex_top_gain_vol)
+    binance_top_los_vol = format_number(binance_top_los_vol)
+    cb_top_los_vol = format_number(cb_top_los_vol)
+    okex_top_los_vol = format_number(okex_top_los_vol)
+
 
     top_caps = [[],[],[]]
     for top5 in range(3):
         top_caps[top5].insert(0, str(data_cmc['data'][top5]['symbol']))
-        top_caps[top5].insert(1, str(data_cmc['data'][top5]['quote']['USD']['price']))
-        top_caps[top5].insert(2, str(data_cmc['data'][top5]['quote']['USD']['percent_change_24h']))
-        top_caps[top5].insert(3, str(data_cmc['data'][top5]['quote']['USD']['volume_24h']))
-
+        top_caps[top5].insert(1, round(float(data_cmc['data'][top5]['quote']['USD']['price']), 2))
+        top_caps[top5].insert(2, round(float(data_cmc['data'][top5]['quote']['USD']['percent_change_24h']), 2))
+        top_caps[top5].insert(3, round(float(data_cmc['data'][top5]['quote']['USD']['volume_24h'])))
+    top_caps[0][1] = round(top_caps[0][1])
+    top_caps[1][1] = round(top_caps[1][1])
     title = create_text('title')
     text_all = create_text('text')
 
     lst1 = [top1_name, top1_volume_24h, top2_name, top2_volume_24h, top3_name, top3_volume_24h,
             binance_top_gain_name, binance_top_gain_price, binance_top_gain_price_change, binance_top_gain_vol,
-            cb_top_gain_name, cb_gain_price, cb_top_gain_price_change, cb_top_gain_vol,
+            cb_top_gain_name, cb_top_gain_price, cb_top_gain_price_change, cb_top_gain_vol,
             okex_top_gain_name, okex_top_gain_price, okex_top_gain_price_change, okex_top_gain_vol,
             binance_hike_name, binance_hike_percent_change, binance_hike_cap,
             cb_hike_name, cb_hike_percent_change, cb_hike_cap,
             okex_hike_name, okex_hike_percent_change, okex_hike_cap,
             binance_top_los_name, binance_top_los_price, binance_top_los_price_change, binance_top_los_vol,
-            cb_top_los_name, cb_los_price, cb_top_los_price_change, cb_top_los_vol,
+            cb_top_los_name, cb_top_los_price, cb_top_los_price_change, cb_top_los_vol,
             okex_top_los_name, okex_top_los_price, okex_top_los_price_change, okex_top_los_vol,
             binance_drop_name, binance_drop_percent_change, binance_drop_cap,
             cb_drop_name, cb_drop_percent_change, cb_drop_cap,
-            okex_drop_name, okex_drop_percent_change, okex_drop_cap,top_caps[0][0], top_caps[0][1],top_caps[0][2],
-            top_caps[1][0], top_caps[1][1],top_caps[1][2],top_caps[2][0], top_caps[2][1],top_caps[2][2]]
+            okex_drop_name, okex_drop_percent_change, okex_drop_cap,top_caps[0][0], round(top_caps[0][1]),top_caps[0][2],format_number(top_caps[0][3]),
+            top_caps[1][0], top_caps[1][1],top_caps[1][2],format_number(top_caps[1][3]), top_caps[2][0], top_caps[2][1],top_caps[2][2],format_number(top_caps[2][3])]
 
     lst2 = ['{top1_name}', '{top1_volume_24h}', '{top2_name}', '{top2_volume_24h}', '{top3_name}', '{top3_volume_24h}',
             '{binance_top_gain_name}', '{binance_top_gain_price}', '{binance_top_gain_price_change}', '{binance_top_gain_vol}',
-            '{cb_top_gain_name}', '{cb_gain_price}', '{cb_top_gain_price_change}', '{cb_top_gain_vol}',
+            '{cb_top_gain_name}', '{cb_top_gain_price}', '{cb_top_gain_price_change}', '{cb_top_gain_vol}',
             '{okex_top_gain_name}', '{okex_top_gain_price}', '{okex_top_gain_price_change}', '{okex_top_gain_vol}',
             '{binance_hike_name}', '{binance_hike_percent_change}', '{binance_hike_cap}',
             '{cb_hike_name}', '{cb_hike_percent_change}', '{cb_hike_cap}',
             '{okex_hike_name}', '{okex_hike_percent_change}', '{okex_hike_cap}',
             '{binance_top_los_name}', '{binance_top_los_price}', '{binance_top_los_price_change}', '{binance_top_los_vol}',
-            '{cb_top_los_name}', '{cb_los_price}', '{cb_top_los_price_change}', '{cb_top_los_vol}',
+            '{cb_top_los_name}', '{cb_top_los_price}', '{cb_top_los_price_change}', '{cb_top_los_vol}',
             '{okex_top_los_name}', '{okex_top_los_price}', '{okex_top_los_price_change}', '{okex_top_los_vol}',
             '{binance_drop_name}', '{binance_drop_percent_change}', '{binance_drop_cap}',
             '{cb_drop_name}', '{cb_drop_percent_change}', '{cb_drop_cap}',
-            '{okex_drop_name}', '{okex_drop_percent_change}', '{okex_drop_cap}','{top_caps[0][0]}', '{top_caps[0][1]}','{top_caps[0][2]}',
-            '{top_caps[1][0]}', '{top_caps[1][1]}','{top_caps[1][2]}','{top_caps[2][0]}', '{top_caps[2][1]}','{top_caps[2][2]}']
+            '{okex_drop_name}', '{okex_drop_percent_change}', '{okex_drop_cap}','{top_caps[0][0]}', '{round(top_caps[0][1])}','{top_caps[0][2]}','{format_number(top_caps[0][3])}',
+            '{top_caps[1][0]}', '{top_caps[1][1]}','{top_caps[1][2]}','{format_number(top_caps[1][3])}','{top_caps[2][0]}', '{top_caps[2][1]}','{top_caps[2][2]}','{format_number(top_caps[2][3])}']
 
     for i in range(len(lst1)):
         if lst2[i] in text_all:
-            text_all = text_all.replace(lskt2[i], str(lst1[i]))
+            text_all = text_all.replace(lst2[i], str(lst1[i]))
         if lst2[i] in title:
             title = title.replace(lst2[i], str(lst1[i]))
-    print('created text')
+    print('Text created')
     push_post(title, text_all)
 main()
 
