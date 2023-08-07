@@ -7,7 +7,7 @@
             "0":"<h2>The biggest cryptos of the last 24h</h2>"
         },
         "main_text":{
-            "0":"<p><ul><li>{top1_name}: {top1_volume_24h}%</li></ul></p>\n<p><ul><li>{top2_name}: {top2_volume_24h}%</li></ul></p>\n<p><ul><li>{top3_name}: {top3_volume_24h}%</li></ul></p>\n"
+            "0":"<p><ul>{top3}</ul></p>\n"
         }
     },
     "1":{
@@ -15,7 +15,7 @@
             "0":"<p><h3>Every day we look through the data from the biggest crypto exchanges to collect the most important stat about cryptos</h3></p>"
         },
         "main_text":{
-            "0":"<p><strong>Top gainers</strong></p>\n<p><ul><li>{binance_top_gain_name}: {binance_top_gain_price}$, {binance_top_gain_price_change}%, Volume 24h {binance_top_gain_vol}$ (via Binance)</li></ul></p>\n<p><ul><li>{cb_top_gain_name}: {cb_top_gain_price}$, {cb_top_gain_price_change}%, Volume 24h {cb_top_gain_vol}$ (via Coinbase)</li></ul></p>\n<p><ul><li>{okex_top_gain_name}: {okex_top_gain_price}$, {okex_top_gain_price_change}%, Volume 24h {okex_top_gain_vol}$ (via OKEX)</li></ul></p>"
+            "0":"<p><strong>Top gainers</strong></p>\n<p><strong>Binance</strong></p>\n<p><ul>{binance_gain_text}</ul></p>\n<p><ul><li>{cb_top_gain_name}: {cb_top_gain_price}$, {cb_top_gain_price_change}%, Volume 24h {cb_top_gain_vol}$ (via Coinbase)</li></ul></p>\n<p><ul><li>{okex_top_gain_name}: {okex_top_gain_price}$, {okex_top_gain_price_change}%, Volume 24h {okex_top_gain_vol}$ (via OKEX)</li></ul></p>"
 
         }
     },
