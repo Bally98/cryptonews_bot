@@ -130,6 +130,12 @@ def main():
         formatted_num = "{:,.0f}".format(num).replace(',', '.')
         return formatted_num
 
+    def name_edit(name):
+        a = name[:-4]
+        b = '-'
+        c = name[-4:]
+        name = a + b + c
+        return name
 
     for cmc_value in data_cmc['data']:
         percent_change = cmc_value['quote']['USD']['percent_change_24h']
@@ -157,18 +163,18 @@ def main():
                     binance_gain_vols[2] = binance_gain_vols[1]
                     binance_gain_vols[1] = binance_gain_vols[0]
                     binance_gain_vols[0] = round(float(value_binance['quoteVolume']))
-                    binance_gain_names[0] = value_binance['symbol'][:-4]
+                    binance_gain_names[0] = name_edit(value_binance['symbol'])
                     binance_gain_prices[0] = cut(float(value_binance['lastPrice']))
                     binance_gain_price_changes[0] = float(value_binance['priceChangePercent'])
                 elif binance_value > float(binance_gain_vols[1]):
                     binance_gain_vols[2] = binance_gain_vols[1]
                     binance_gain_vols[1] = round(float(value_binance['quoteVolume']))
-                    binance_gain_names[1] = value_binance['symbol'][:-4]
+                    binance_gain_names[1] = name_edit(value_binance['symbol'])
                     binance_gain_prices[1] = cut(float(value_binance['lastPrice']))
                     binance_gain_price_changes[1] = float(value_binance['priceChangePercent'])
                 elif binance_value> float(binance_gain_vols[2]):
                     binance_gain_vols[2] = round(float(value_binance['quoteVolume']))
-                    binance_gain_names[2] = value_binance['symbol'][:-4]
+                    binance_gain_names[2] = name_edit(value_binance['symbol'])
                     binance_gain_prices[2] = cut(float(value_binance['lastPrice']))
                     binance_gain_price_changes[2] = float(value_binance['priceChangePercent'])
 
@@ -176,18 +182,18 @@ def main():
                     binance_los_vols[2] = binance_los_vols[1]
                     binance_los_vols[1] = binance_los_vols[0]
                     binance_los_vols[0] = round(float(value_binance['quoteVolume']))
-                    binance_los_names[0] = value_binance['symbol'][:-4]
+                    binance_los_names[0] = name_edit(value_binance['symbol'])
                     binance_los_prices[0] = float(value_binance['lastPrice'])
                     binance_los_price_changes[0] = float(value_binance['priceChangePercent'])
                 elif binance_value < float(binance_los_vols[1]):
                     binance_los_vols[2] = binance_los_vols[1]
                     binance_los_vols[1] = round(float(value_binance['quoteVolume']))
-                    binance_los_names[1] = value_binance['symbol'][:-4]
+                    binance_los_names[1] = name_edit(value_binance['symbol'])
                     binance_los_prices[1] = float(value_binance['lastPrice'])
                     binance_los_price_changes[1] = float(value_binance['priceChangePercent'])
                 elif binance_value < float(binance_los_vols[2]):
                     binance_los_vols[2] = round(float(value_binance['quoteVolume']))
-                    binance_los_names[2] = value_binance['symbol'][:-4]
+                    binance_los_names[2] = name_edit(value_binance['symbol'])
                     binance_los_prices[2] = float(value_binance['lastPrice'])
                     binance_los_price_changes[2] = float(value_binance['priceChangePercent'])
 
@@ -201,18 +207,18 @@ def main():
                 if volume_cb > float(cb_gain_vols[0]):
                     cb_gain_vols[2] = cb_gain_vols[1]
                     cb_gain_vols[1] = cb_gain_vols[0]
-                    cb_gain_names[0] = str(value_cb['base_currency_id'])
+                    cb_gain_names[0] = str(value_cb['product_id'])
                     cb_gain_prices[0] =  float(value_cb['price'])
                     cb_gain_price_changes[0] = round(float(value_cb['price_percentage_change_24h']), 3)
                     cb_gain_vols[0] =  round(volume_cb)
                 elif volume_cb > float(cb_gain_vols[1]):
                     cb_gain_vols[2] = cb_gain_vols[1]
-                    cb_gain_names[1] =  str(value_cb['base_currency_id'])
+                    cb_gain_names[1] =  str(value_cb['product_id'])
                     cb_gain_prices[1] = float(value_cb['price'])
                     cb_gain_price_changes[1] =round(float(value_cb['price_percentage_change_24h']), 3)
                     cb_gain_vols[1] = round(volume_cb)
                 elif volume_cb > float(cb_gain_vols[2]):
-                    cb_gain_names[2] = str(value_cb['base_currency_id'])
+                    cb_gain_names[2] = str(value_cb['product_id'])
                     cb_gain_prices[2] = float(value_cb['price'])
                     cb_gain_price_changes[2] = round(float(value_cb['price_percentage_change_24h']), 3)
                     cb_gain_vols[2] = volume_cb
@@ -220,18 +226,18 @@ def main():
                 elif volume_cb < cb_los_vols[0]:
                     cb_los_vols[2] = cb_los_vols[1]
                     cb_los_vols[1] = cb_los_vols[0]
-                    cb_los_names[0] = str(value_cb['base_currency_id'])
+                    cb_los_names[0] = str(value_cb['product_id'])
                     cb_los_prices[0] = float(value_cb['price'])
                     cb_los_price_changes[0] = round(float(value_cb['price_percentage_change_24h']), 3)
                     cb_los_vols[0] = round(volume_cb)
                 elif volume_cb < cb_los_vols[1]:
                     cb_los_vols[2] = cb_los_vols[1]
-                    cb_los_names[1] = str(value_cb['base_currency_id'])
+                    cb_los_names[1] = str(value_cb['product_id'])
                     cb_los_prices[1] = float(value_cb['price'])
                     cb_los_price_changes[1] = round(float(value_cb['price_percentage_change_24h']), 3)
                     cb_los_vols[1] = round(volume_cb)
                 elif volume_cb < cb_los_vols[2]:
-                    cb_los_names[2] = str(value_cb['base_currency_id'])
+                    cb_los_names[2] = str(value_cb['product_id'])
                     cb_los_prices[2] = float(value_cb['price'])
                     cb_los_price_changes[2] = round(float(value_cb['price_percentage_change_24h']), 3)
                     cb_los_vols[2] = round(volume_cb)
@@ -245,20 +251,20 @@ def main():
                 if float(value_okex['volCcy24h']) > okex_gain_vols[0]:
                     okex_gain_vols[2] = okex_gain_vols[1]
                     okex_gain_vols[1] = okex_gain_vols[0]
-                    okex_gain_names[0] = str(value_okex['instId'][:x])
+                    okex_gain_names[0] = str(value_okex['instId'])
                     okex_gain_prices[0] =  cut(float(value_okex['last']))
                     okex_gain_price_changes[0] =  round(
                         (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
                     okex_gain_vols[0] =  round(float(value_okex['volCcy24h']))
                 elif float(value_okex['volCcy24h']) > okex_gain_vols[1]:
                     okex_gain_vols[2] = okex_gain_vols[1]
-                    okex_gain_names[1] =  str(value_okex['instId'][:x])
+                    okex_gain_names[1] =  str(value_okex['instId'])
                     okex_gain_prices[1] =  cut(float(value_okex['last']))
                     okex_gain_price_changes[1] = round(
                         (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
                     okex_gain_vols[1] = round(float(value_okex['volCcy24h']))
                 elif float(value_okex['volCcy24h']) > okex_gain_vols[2]:
-                    okex_gain_names[2] = str(value_okex['instId'][:x])
+                    okex_gain_names[2] = str(value_okex['instId'])
                     okex_gain_prices[2] =  cut(float(value_okex['last']))
                     okex_gain_price_changes[2] =  round(
                         (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
@@ -267,20 +273,20 @@ def main():
                 elif float(value_okex['volCcy24h']) < okex_los_vols[0]:
                     okex_los_vols[2] = okex_los_vols[1]
                     okex_los_vols[1] = okex_los_vols[0]
-                    okex_los_names[0] = str(value_okex['instId'][:x])
+                    okex_los_names[0] = str(value_okex['instId'])
                     okex_los_prices[0] =  cut(float(value_okex['last']))
                     okex_los_price_changes[0] =  round(
                         (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
                     okex_los_vols[0] = round(float(value_okex['volCcy24h']))
                 elif float(value_okex['volCcy24h']) < okex_los_vols[1]:
                     okex_los_vols[2] = okex_los_vols[1]
-                    okex_los_names[1] =  str(value_okex['instId'][:x])
+                    okex_los_names[1] =  str(value_okex['instId'])
                     okex_los_prices[1] = cut(float(value_okex['last']))
                     okex_los_price_changes[1] = round(
                         (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
                     okex_los_vols[1] = round(float(value_okex['volCcy24h']))
                 elif float(value_okex['volCcy24h']) < okex_los_vols[2]:
-                    okex_los_names[2] = str(value_okex['instId'][:x])
+                    okex_los_names[2] = str(value_okex['instId'])
                     okex_los_prices[2] = cut(float(value_okex['last']))
                     okex_los_price_changes[2] =  round(
                         (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
@@ -381,12 +387,12 @@ def main():
                     (float(value_okex['last']) / float(value_okex['open24h']) * 100 - 100), 2)
 
     for cap_value in range(3):
-        binance_hike_cap.insert(cap_value, format_number(get_cap_cmc(binance_hike_names[cap_value])))
-        binance_drop_cap.insert(cap_value, format_number(get_cap_cmc(binance_drop_names[cap_value])))
-        cb_hike_cap.insert(cap_value, format_number(get_cap_cmc(cb_hike_names[cap_value])))
-        cb_drop_cap.insert(cap_value, format_number(get_cap_cmc(cb_drop_names[cap_value])))
-        okex_hike_cap.insert(cap_value, format_number(get_cap_cmc(okex_hike_names[cap_value])))
-        okex_drop_cap.insert(cap_value, format_number(get_cap_cmc(okex_drop_names[cap_value])))
+        binance_hike_cap[cap_value] = format_number(get_cap_cmc(binance_hike_names[cap_value]))
+        binance_drop_cap[cap_value] =  format_number(get_cap_cmc(binance_drop_names[cap_value]))
+        cb_hike_cap[cap_value] =  format_number(get_cap_cmc(cb_hike_names[cap_value]))
+        cb_drop_cap[cap_value] =  format_number(get_cap_cmc(cb_drop_names[cap_value]))
+        okex_hike_cap[cap_value] =  format_number(get_cap_cmc(okex_hike_names[cap_value]))
+        okex_drop_cap[cap_value] =  format_number(get_cap_cmc(okex_drop_names[cap_value]))
 
     for top3_value in range(3):
         top3 += f"<li>{top_names[top3_value]} - {top_volumes_24h[top3_value]}%</li>"
@@ -423,7 +429,7 @@ def main():
     okex_drop_text = ''
 
     for hike_drop in range(3):
-        binance_hike_text += f"<li>{binance_hike_names[hike_drop]}: {binance_hike_price_changes[hike_drop]}% (Market cap for now: {binance_gain_price_changes[hike_drop]})$</li>"
+        binance_hike_text += f"<li>{binance_hike_names[hike_drop]}: {binance_hike_price_changes[hike_drop]}% (Market cap for now: {binance_hike_cap[hike_drop]})$</li>"
         binance_drop_text += f"<li>{binance_drop_names[hike_drop]}: {binance_drop_price_changes[hike_drop]}% (Market cap for now: {binance_drop_cap[hike_drop]})$</li>"
         cb_hike_text += f"<li>{cb_hike_names[hike_drop]}: {cb_hike_price_changes[hike_drop]}% (Market cap for now: {cb_hike_cap[hike_drop]})$</li>"
         cb_drop_text += f"<li>{cb_drop_names[hike_drop]}: {cb_drop_price_changes[hike_drop]}% (Market cap for now: {cb_drop_cap[hike_drop]})$</li>"
