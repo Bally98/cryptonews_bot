@@ -1,0 +1,252 @@
+feeds,label,format,name
+https://feeds.bloomberg.com/technology/news.rss,ainews,website,Bloomberg Technology
+https://one5c.substack.com/feed,climate,newsletter,one5c
+http://fetchrss.com/rss/6414305008f26050a001496364538a7701dea90c854798b4.xml,ainews,website,Quartz
+https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=19854910,ainews,website,CNBC
+https://www.theverge.com/rss/index.xml,ainews,website,The Verge
+https://rss.nytimes.com/services/xml/rss/nyt/Technology.xml,ainews,website,NYT
+https://www.technologyreview.com/feed,ainews,website,MIT Technology Review
+https://finbold.com/category/startups-news/rss,startups,website,Startups News
+https://finbold.com/topic/investing/rss,startups,website,Finance in Bold
+https://www.startupdaily.net/rss,startups,website,Startup Daily
+https://finbold.com/category/cryptocurrency-news/rss,crypto,website,Cryptocurrency News
+https://feeds.a.dj.com/rss/RSSWSJD.xml,startups,website,WSJ.com
+http://fetchrss.com/rss/6414305008f26050a001496364649ab4fa30514ecd10faf2.xml,startups,website,VCcircle
+https://news.mit.edu/topic/mitartificial-intelligence2-rss.xml,ainews,website,MIT News
+http://fetchrss.com/rss/6414305008f26050a00149636433cd22b069911759111b96.xml,ainews,website,Engadget
+http://fetchrss.com/rss/6414305008f26050a00149636436726b425aad20f312b5d6.xml,ainews,website,HackerNoon
+http://fetchrss.com/rss/6414305008f26050a00149636439348a8eb4665c38628703.xml,ainews,website,Ars Technica
+https://ai.googleblog.com/atom.xml,ainews,website,Google AI Blog
+http://fetchrss.com/rss/6414305008f26050a00149636441247bae0c5e16d7525f72.xml,ainews,website,Financial Times
+http://fetchrss.com/rss/6414305008f26050a0014963644641fa782fd33d14556a27.xml,ainews,website,TechTalks
+http://fetchrss.com/rss/6414305008f26050a0014963644643cb9a72df152f7de925.xml,ainews,website,Freethink
+https://feeds.a.dj.com/rss/RSSWSJD.xml,ainews,website,WSJ.com
+http://fetchrss.com/rss/6414305008f26050a00149636454f92f31bbc273e7015732.xml,ainews,website,WIRED
+https://insideclimatenews.org/rss,climate,website,Inside Climate News
+http://feeds.feedburner.com/ClimateHome,climate,website,Climate Home News
+http://fetchrss.com/rss/6414305008f26050a001496364538c61e172861fd0482b03.xml,climate,website,Quartz
+http://fetchrss.com/rss/6414305008f26050a001496364944dec6ce1bb2cce509262.xml,climate,website,IFL Science
+https://rss.nytimes.com/services/xml/rss/nyt/Climate.xml,climate,website,NYT
+http://fetchrss.com/rss/6414305008f26050a00149636437d14ac7d6916a100f0c03.xml,climate,website,Carbon Brief
+https://grist.org/rss,climate,website,Grist
+http://fetchrss.com/rss/6414305008f26050a00149636437cb6679e6ab3f5e21ce93.xml,climate,website,The Conversation
+http://fetchrss.com/rss/6414305008f26050a00149636437c55e17bb64659b22c804.xml,climate,website,Cipher
+http://fetchrss.com/rss/6414305008f26050a00149636433daa71ba3f07e85711c22.xml,esports,website,FetchRSS
+http://fetchrss.com/rss/6414305008f26050a00149636433df044c779b51c347e702.xml,esports,website,FetchRSS
+https://www.hltv.org/rss/news,esports,website,HLTV.org - The home of competitive Counter-Strike
+http://fetchrss.com/rss/6414305008f26050a00149636450fa717325d558654d0332.xml,esports,website,FetchRSS
+http://fetchrss.com/rss/6414305008f26050a00149636450faad822c033963395b23.xml,esports,website,FetchRSS
+http://fetchrss.com/rss/6414305008f26050a00149636450fae68798470c4c059f22.xml,esports,website,FetchRSS
+http://fetchrss.com/rss/6414305008f26050a00149636461fe60b17edd4d2535eaa3.xml,impact,website, Financial Times
+http://fetchrss.com/rss/6414305008f26050a00149636461fec211a4b544f80f9623.xml,impact,website,TechCrunch
+https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=19854910,impact,website,Tech
+http://fetchrss.com/rss/6414305008f26050a001496364629979cb284a51f80a1ec2.xml,impact,website,ESG Investing
+http://fetchrss.com/rss/6414305008f26050a00149636437f50c5338c855344d87d2.xml,impact,website,Climate Tech VC
+http://fetchrss.com/rss/6414305008f26050a001496364538c61e172861fd0482b03.xml,impact,website,Quartz
+http://fetchrss.com/rss/6414305008f26050a0014963646295d470b0ad679131dc83.xml,impact,website,Sifted
+http://fetchrss.com/rss/6414305008f26050a001496364633f1d633d6266557674a2.xml,impact,website,ESG Today
+https://feeds.feedburner.com/eu-startups,impact,website,EU-Startups
+https://www.positive.news/feed,good,website,Positive News
+https://www.goodnewsnetwork.org/feed,good,website,Good News Network
+https://www.goodgoodgood.co/feed,good,website,Good Good Good
+https://squirrel-news.net/feed/?cat=news,good,website,Squirrel News
+http://fetchrss.com/rss/6414305008f26050a0014963644d09abd17f1e3bd624f032.xml,good,website,The Uplift
+https://www.journalism.co.uk/s17/,media,website,Journalism.co.uk
+https://www.niemanlab.org/feed,media,website,Nieman Lab
+https://rss.nytimes.com/services/xml/rss/nyt/MediaandAdvertising.xml,media,website,NYT
+https://pressgazette.co.uk/feed,media,website,Press Gazette
+http://fetchrss.com/rss/6414305008f26050a00149636423fbd113fa9c1f0b743842.xml,media,website,Poool Blog
+http://fetchrss.com/rss/6414305008f26050a001496364147ff067b9163781696e82.xml,media,website,Variety Digital
+http://fetchrss.com/rss/6414305008f26050a00149636415b0f3e65773776b0a9432.xml,media,website,The Fix
+http://fetchrss.com/rss/6414305008f26050a001496364148069f1ca7b6e160e6c62.xml,media,website,Semafor Media
+http://fetchrss.com/rss/6414305008f26050a0014963642444d76d0d9b53805929c2.xml,media,website,The Audiencers
+http://fetchrss.com/rss/6414305008f26050a001496364c8bd7f6e24881f7135ed72.xml,media,website,Poynter
+http://fetchrss.com/rss/6414305008f26050a001496364245e62a04d3f7de13274b2.xml,media,website,New York Post
+http://fetchrss.com/rss/6414305008f26050a00149636433d0921ac5d64a25172382.xml,media,website,What’s New in Publishing
+http://fetchrss.com/rss/6414305008f26050a00149636433d1812b45c0142f685d8b.xml,media,website,Pew Research Center
+http://fetchrss.com/rss/6414305008f26050a00149636448ec54ac3b3f7298496de7.xml,media,website,A Media Operator
+https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10000110,media,website,CNBC
+https://rss.nytimes.com/services/xml/rss/nyt/SmallBusiness.xml,startups,website,NYT
+https://rss.nytimes.com/services/xml/rss/nyt/Business.xml,startups,website,NYT
+https://www.theverge.com/rss/index.xml,startups,website,The Verge
+http://fetchrss.com/rss/6414305008f26050a00149636461fa97b978e729d73ca5c2.xml,startups,website,Insider
+http://fetchrss.com/rss/6414305008f26050a00149636461fae3cde5fa21ee4f33a2.xml,media,website,Insider
+http://fetchrss.com/rss/6414305008f26050a00149636461fe60b17edd4d2535eaa3.xml,startups,website,Financial Times
+http://fetchrss.com/rss/6414305008f26050a00149636461fec211a4b544f80f9623.xml,startups,website,TechCrunch
+https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=19854910,startups,website,CNBC
+http://fetchrss.com/rss/6414305008f26050a0014963644c0e9a0ce5b50edf7e3902.xml,startups,website,Crunchbase News
+http://fetchrss.com/rss/6414305008f26050a0014963644c0fe470597c6ad1125c12.xml,startups,website,TechCrunch
+http://fetchrss.com/rss/6414305008f26050a0014963644c1742120c066f586df212.xml,startups,website,Tech Startups
+http://fetchrss.com/rss/6414305008f26050a0014963644c185717b6cb6a571a05b2.xml,startups,website,Financial Times
+https://feeds.feedburner.com/eu-startups,startups,website,EU-Startups
+https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10001147,startups,website,Business News
+https://fortune.com/feed/fortune-feeds/?id=3230629,startups,website,Fortune
+http://fetchrss.com/rss/6414305008f26050a0014963642b18e29950de2654737922.xml,ainews,newsletter,Big Brain
+http://fetchrss.com/rss/6414305008f26050a0014963642b19304fb44a0a3b4ec932.xml,ainews,newsletter,Superhuman
+http://fetchrss.com/rss/6414305008f26050a0014963642b195afd8ddb437910e642.xml,ainews,newsletter,The Neuron
+http://fetchrss.com/rss/6414305008f26050a0014963642b19d0f0d03927bc362613.xml,ainews,newsletter,Prompt Engineering Daily
+http://fetchrss.com/rss/6414305008f26050a0014963642b1a0df1d0da01c6453992.xml,ainews,newsletter,WhatAi Newsletter
+http://fetchrss.com/rss/6414305008f26050a0014963643020a1c435144d110fdd62.xml,ainews,newsletter,Hugging Face
+https://thesequence.substack.com/feed,ainews,newsletter,TheSequence
+http://fetchrss.com/rss/6414305008f26050a0014963643019feb104775b65562fc3.xml,media,newsletter,The Rebooting
+http://fetchrss.com/rss/6414305008f26050a00149636430194688951037a7163582.xml,media,newsletter,Simon Owens
+https://stratechery.com/feed,media,newsletter,Stratechery
+http://fetchrss.com/rss/6414305008f26050a001496364c8cde8273c4d67ea359632.xml,media,newsletter,Unmade
+https://dicktofel.substack.com/feed,media,newsletter,Second Rough Draft
+http://fetchrss.com/rss/6414305008f26050a001496364301a5d60bbe057a6464812.xml,media,newsletter,Wonder Tools
+https://thefineprintnyc.com/feed,media,newsletter,The Fine Print
+https://dankennedy.net/feed,media,newsletter,Media Nation
+https://mondaynote.com/feed,media,newsletter,Monday Note
+http://feeds.mediapost.com/mediapost-mad-blog,media,newsletter,MediaPost | Mad Blog
+http://fetchrss.com/rss/6414305008f26050a001496364c8d0ea0287bc482d17fa12.xml,media,newsletter,JournalistsToolbox.ai
+https://onemanandhisblog.com/rss/,media,newsletter,One Man & His Blog
+https://mrmagazine.me/feed/,media,newsletter,Mr. Magazine
+http://fetchrss.com/rss/6414305008f26050a001496364c8ca2702e0a03507700b15.xml,media,newsletter,Newsletter Circle on Substack
+http://fetchrss.com/rss/6414305008f26050a001496364c8caebae0e9f392b322c63.xml,media,newsletter,Newsletter Circle on Beehiive
+https://femstreet.substack.com/feed,startups,newsletter,Femstreet
+https://hunterwalk.com/feed,startups,newsletter,Hunter Walk
+https://www.lennysnewsletter.com/feed,startups,newsletter,Lenny's Newsletter
+https://www.vantechjournal.com/feed,startups,newsletter,Vancouver Tech Journal
+https://velocitygrowth.com/blog/rss,startups,newsletter,Comments on: Velocity Growth Blog
+https://heated.world/feed,climate,newsletter,HEATED
+http://fetchrss.com/rss/6414305008f26050a00149636437c55e17bb64659b22c804.xml,climate,newsletter,Cipher
+https://www.weeklyclimate.com/feed,climate,newsletter,The Weekly Climate
+https://theslowmovingapocalypse.substack.com/feed,climate,newsletter,The Slow Moving Apocalypse
+http://www.carboncommentary.com/blog/?format=rss,climate,newsletter,Carbon Commentary
+http://fetchrss.com/rss/6414305008f26050a00149636437f50c5338c855344d87d2.xml,climate,newsletter,Climate Tech VC
+https://techemergence.libsyn.com/rss,ainews,podcast,The AI in Business Podcast
+https://www.aidatatoday.com/feed/podcast/,ainews,podcast,AI Today Podcast
+http://feeds.libsyn.com/123267/rss,ainews,podcast,Eye On A.I.
+https://practicalai.fm/rss,ainews,podcast,Practical AI
+https://feeds.megaphone.fm/MLN2155636147,ainews,podcast,The TWIML AI Podcast
+https://feeds.transistor.fm/podcast-ai,ainews,podcast,podcast.ai
+https://dataskeptic.com/feed.rss,ainews,podcast,Data Skeptic
+https://braininspired.co/feed/podcast,ainews,podcast,Brain Inspired
+https://feeds.simplecast.com/NWaROOTL,ainews,podcast,Newsroom Robots
+https://outrageandoptimism.libsyn.com/rss,climate,podcast,Outrage + Optimism
+http://feeds.libsyn.com/191481/rss,climate,podcast,The Climate Pod
+https://feeds.megaphone.fm/ASPEL4243160556,esports,podcast,MorganMan Sports
+https://feeds.simplecast.com/mVuvbeQv,esports,podcast,We Say Things
+https://anchor.fm/s/a3fd589c/podcast/rss,esports,podcast,The Best Damn League Show.
+https://anchor.fm/s/953a0dc8/podcast/rss,esports,podcast,Summoning Insight
+https://feeds.buzzsprout.com/1628020.rss,esports,podcast,The Traxion Podcast
+https://anchor.fm/s/261a7d9c/podcast/rss,esports,podcast,The Dive
+https://feeds.simplecast.com/XqkIYdSB,esports,podcast,Side Pull
+https://anchor.fm/s/8bb1860/podcast/rss,esports,podcast,HLTV Confirmed - CS:GO Podcast
+https://audioboom.com/channels/4970769.rss,esports,podcast,The Retro Hour (Retro Gaming Podcast)
+https://feeds.transistor.fm/the-good-news-podcast,good,podcast,The Good News Podcast
+http://fetchrss.com/rss/6414305008f26050a0014963645cc4bcdacf1970c5166dc2.xml,good,podcast,Good Life Project
+https://feeds.simplecast.com/_WI4mhWl,good,podcast,Secretly Incredibly Fascinating
+https://podcast.squirrel-news.net/english.rss,good,podcast,The Squirrel News Podcast
+https://the-daily-good.com/category/the-daily-good/feed/,good,podcast,The Daily Good
+http://fetchrss.com/rss/6414305008f26050a0014963645cc2053e5ddb5ea807fcb3.xml,media,podcast,The Digiday Podcast
+http://fetchrss.com/rss/6414305008f26050a0014963645cc361004a6378095be282.xml,media,podcast,Recode Media
+https://themediapodcast.com/feed,media,podcast,The Media Podcast with Matt Deegan
+http://feeds.wnyc.org/onthemedia,media,podcast,On the Media
+https://pod.link/pva.rss,media,podcast,People vs Algorithms
+https://feeds.acast.com/public/shows/repod,media,podcast,RePod
+https://pod.link/1133571338.rss,media,podcast,The magCulture Podcast
+http://fetchrss.com/rss/6414305008f26050a0014963645cc1779b5bbe201b04d9a2.xml,media,podcast,Journalism.co.uk
+http://fetchrss.com/rss/6414305008f26050a001496364c8c7a811496f766f356962.xml,media,podcast,Newsroom Robots
+https://feeds.simplecast.com/y_IjPwmW,startups,podcast,Startup Savant
+https://anchor.fm/s/7c624c84/podcast/rss,startups,podcast,This Week in Startups
+http://fetchrss.com/rss/6414305008f26050a0014963645d15766c284b0cd4694442.xml,startups,podcast,The Tim Ferriss Show
+https://feeds.simplecast.com/STAA0SWN,startups,podcast,The TechCrunch Podcast
+https://www.omnycontent.com/d/playlist/0273d602-3c07-4150-aee2-aaf701754024/ea3fb4c8-44e9-4ff1-a5bf-ab1300488402/0cf56d13-564f-49cb-8de4-ab130048841e/podcast.rss,startups,podcast,Startup Hustle
+https://feeds.simplecast.com/JGE3yC0V,startups,podcast,a16z Podcast
+https://feeds.megaphone.fm/thepitch,startups,podcast,The Pitch
+https://allinchamathjason.libsyn.com/rss,startups,podcast,All-In
+http://feeds.libsyn.com/61840/rss,startups,podcast,The Twenty Minute VC (20VC)
+https://api.substack.com/feed/podcast/10845.rss,startups,podcast,Lenny's Podcast
+https://feeds.transistor.fm/rework,startups,podcast,Rework
+https://feeds.transistor.fm/slow-steady,startups,podcast,Slow & Steady
+http://fetchrss.com/rss/6414305008f26050a0014963645cc43d70eb0d444d7d5132.xml,startups,podcast,HBR IdeaCast
+http://fetchrss.com/rss/6414305008f26050a0014963645cc56487b5891b09466b62.xml,startups,podcast,The Sifted Podcast
+http://fetchrss.com/rss/6414305008f26050a0014963645cc512980c4233ca68d8e2.xml,startups,podcast,This Week in Startups
+http://fetchrss.com/rss/6414305008f26050a0014963645cc7f8200fcc1bd5601592.xml,startups,podcast,The Twenty Minute VC (20VC)
+http://fetchrss.com/rss/6414305008f26050a0014963645cd62fa7fa9f18323d2c52.xml,ainews,website,Gizmodo
+http://fetchrss.com/rss/6414305008f26050a0014963645cf7643bcf8038ec0bcfb2.xml,startups,newsletter,Pando Blog
+https://tech.co/news/rss,startups,website,Tech.Co
+https://www.entrepreneur.com/latest.rss,startups,website,Entrepreneur
+https://mashable.com/feeds/rss/all,startups,website,Mashable
+https://adage.com/section/rss,marketing,website,Ad Age
+https://www.marketingdive.com/feeds/news/,marketing,website,Marketing Dive
+http://fetchrss.com/rss/6414305008f26050a001496364634bd98e220c120b2c28d2.xml,marketing,website,The Drum
+http://fetchrss.com/rss/6414305008f26050a001496364634d550ba69c3e8810e912.xml,marketing,website,Marketing Week
+http://fetchrss.com/rss/6414305008f26050a0014963644c0e9a0ce5b50edf7e3902.xml,startups,website,Crunchbase News
+https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10001147,marketing,website,Business News
+http://fetchrss.com/rss/6414305008f26050a0014963646238426eb68b77a84209a2.xml,marketing,podcast,Adweek Podcast
+https://www.techpluto.com/rss,ainews,website,TechPluto
+https://www.techpluto.com/rss,startups,website,TechPluto
+https://siliconcanals.com/rss,startups,website,Silicon Canals
+http://fetchrss.com/rss/6414305008f26050a00149636436726b425aad20f312b5d6.xml,crypto,website,HackerNoon
+http://fetchrss.com/rss/6414305008f26050a0014963645e1b1c57be8008d04055c2.xml,crypto,website,TechCrunch
+http://fetchrss.com/rss/6414305008f26050a0014963645e2535566c472e3360f642.xml,crypto,podcast,The Decrypting Crypto Podcast
+https://unchained.libsyn.com/rss,crypto,podcast,Unchained
+https://pod.link/1434060078.rss,crypto,podcast,The Pomp Podcast
+https://www.zeroknowledge.fm/rss,crypto,podcast,ZK Podcast
+https://blog.ethereum.org/feed.xml,crypto,newsletter,Ethereum Blog
+http://fetchrss.com/rss/6414305008f26050a0014963645e26be7d8d9d463a670f72.xml,crypto,newsletter,Chainlink Blog
+https://www.tokeneconomy.co/feed,crypto,newsletter,Token Economy
+http://fetchrss.com/rss/6414305008f26050a00149636480bdfa402f02085c688002.xml,crypto,website,The Defiant
+http://podcast.banklesshq.com/rss,crypto,podcast,Bankless
+http://fetchrss.com/rss/6414305008f26050a0014963645e230801e48e62e4581212.xml,crypto,website,CoinDesk
+https://decrypt.co/feed,crypto,website,Decrypt
+https://techfundingnews.com/rss,startups,website,Tech Funding News
+https://techfundingnews.com/rss,crypto,website,Tech Funding News
+http://fetchrss.com/rss/6414305008f26050a0014963645e2a0a4bafdc0e07784412.xml,crypto,website,Cointelegraph
+http://fetchrss.com/rss/6414305008f26050a0014963645e23df0ab8f74c6b7b8a62.xml,crypto,website,CryptoSlate
+http://fetchrss.com/rss/6414305008f26050a0014963645e243ea52bad7ed71221e2.xml,crypto,website,theWeb3 News
+https://rss.nytimes.com/services/xml/rss/nyt/SmallBusiness.xml,marketing,website,NYT
+https://rss.nytimes.com/services/xml/rss/nyt/Business.xml,marketing,website,NYT
+https://www.theverge.com/rss/index.xml,marketing,website,The Verge
+https://sifted.eu/feed/?post_type=article,marketing,website,Sifted
+https://sifted.eu/feed/?post_type=article,startups,website,Sifted
+https://search.cnbc.com/rs/search/combinedcms/view.xml?partnerId=wrss01&id=10001147,marketing,website,CNBC
+https://fortune.com/feed/fortune-feeds/?id=3230629,marketing,website,Fortune
+http://fetchrss.com/rss/6414305008f26050a0014963645cf7643bcf8038ec0bcfb2.xml,marketing,website,Pando Blog
+https://tech.co/news/rss,marketing,website,Tech.Co
+https://mashable.com/feeds/rss/all,marketing,website,Mashable
+http://fetchrss.com/rss/6414305008f26050a0014963645cff01a794db315f228a73.xml,startups,website,First Round Review
+https://www.techpluto.com/rss,marketing,website,TechPluto
+https://siliconcanals.com/rss,marketing,website,Silicon Canals
+https://techfundingnews.com/rss,marketing,website,Tech Funding News
+https://feeds.feedburner.com/venturebeat/SZYF,marketing,website,VentureBeat
+https://www.entrepreneur.com/latest.rss,marketing,website,Entrepreneur
+http://fetchrss.com/rss/6414305008f26050a0014963645e30dea188392e05707a22.xml,marketing,website,Insider Intelligence
+http://fetchrss.com/rss/6414305008f26050a0014963645e3426516a9d4e7d71e343.xml,marketing,podcast,The Marketing Book Podcast
+http://fetchrss.com/rss/6414305008f26050a0014963645e3eb37309bf5e5c5e86a2.xml,marketing,website,MarTech
+https://rss.searchenginejournal.com/,marketing,website,Search Engine Journal
+https://socialmediamarketing.libsyn.com/rss,marketing,podcast,Social Media Marketing Podcast
+https://contentmarketinginstitute.com/feed/,marketing,newsletter,Content Marketing Institute
+http://fetchrss.com/rss/6414305008f26050a0014963645e43b8d9645a202c3b5842.xml,marketing,podcast,Marketing Over Coffee
+http://fetchrss.com/rss/6414305008f26050a0014963646e7967ff2ac06306551b42.xml,media,website,American Journalism Project
+http://fetchrss.com/rss/6414305008f26050a0014963647da34441564d41a56bc092.xml,startups,website,The Logic
+http://fetchrss.com/rss/6414305008f26050a0014963647da34441564d41a56bc092.xml,ainews,website,The Logic
+http://fetchrss.com/rss/6414305008f26050a0014963647da34441564d41a56bc092.xml,impact,website,The Logic
+http://fetchrss.com/rss/6414305008f26050a0014963647da34441564d41a56bc092.xml,crypto,website,The Logic
+http://fetchrss.com/rss/6414305008f26050a0014963647db06d2e7b286fb57910a2.xml,ainews,newsletter,The Boost
+https://duuce.substack.com/feed,media,newsletter,Duuce
+http://feeds2.feedburner.com/TVSeriesFinale-complete,tvshows,website,TVSeriesFinale.com
+https://www.theverge.com/rss/index.xml,tvshows,website,The Verge
+https://www.radiotimes.com/feed/atom/,tvshows,website,RadioTimes
+https://www.thewrap.com/category/tv/rss,tvshows,website,The Wrap
+https://decider.com/feed/,tvshows,website,Decider
+http://fetchrss.com/rss/6414305008f26050a00149636491673b02ba113b2a17b503.xml,tvshows,website,Deadline
+http://fetchrss.com/rss/6414305008f26050a0014963649167db3318f06ddc4a6093.xml,tvshows,website,ComingSoon
+https://www.denofgeek.com/rss,tvshows,website,Den Of Geek
+http://fetchrss.com/rss/6414305008f26050a00149636492ac9cbd6c00550f06a0a3.xml,tvshows,website,BGR
+http://fetchrss.com/rss/6414305008f26050a00149636492acdf1ba1a03f2c2fa842.xml,tvshows,website,The Hollywood Reporter
+http://fetchrss.com/rss/6414305008f26050a00149636491780b21cd0a3c915899a2.xml,tvshows,podcast,Pilot TV
+http://fetchrss.com/rss/6414305008f26050a00149636491787e95c645084527b8b2.xml,tvshows,podcast,Post Show Recaps
+http://feeds.libsyn.com/78637/rss,tvshows,podcast,Canceled Too Soon
+https://feeds.feedburner.com/spoilerintimeaudio,tvshows,podcast,It's Spoilering Time
+https://www.theatlantic.com/feed/all/,ainews,website,The Atlantic
+http://fetchrss.com/rss/6414305008f26050a001496364944e6dce4b834f5a418f82.xml,climate,website,The Journal
+https://www.interconnects.ai/feed,ainews,newsletter,Interconnects
+https://feed.podbean.com/wempower/feed.xml,media,podcast,Wempower
+http://feeds.libsyn.com/171185/rss,media,podcast,Coffee with a Journalist
+https://anchor.fm/s/47aac444/podcast/rss,media,podcast,The Data Journalism Podcast
+http://fetchrss.com/rss/6414305008f26050a001496364c8bb576f600648d4326823.xml,media,website,Digiday
+http://podcasternews.com/feed/,media,website,Podcast News
+http://fetchrss.com/rss/64d135b122c5a66a0875d79364d13585e10be2690c30a752.xml,crypto,website,cryptonews.com

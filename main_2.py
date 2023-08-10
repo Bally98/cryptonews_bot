@@ -1,4 +1,5 @@
 import requests
+from tqdm import tqdm
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
 from pymongo.mongo_client import MongoClient

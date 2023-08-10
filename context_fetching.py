@@ -4,6 +4,7 @@ from tqdm import tqdm
 from lxml import etree
 from datetime import datetime, timedelta, timezone
 
+
 def fetch_news(interval):
     today = datetime.today()
     if today.weekday() == 5 or today.weekday() == 6:  # 5 is Saturday, 6 is Sunday
@@ -11,7 +12,7 @@ def fetch_news(interval):
         print("It's the weekend. Stopping the code.")
         return pd.DataFrame.from_dict({})
 
-    resources = pd.read_csv("newsfeeds.csv")
+    resources = pd.read_csv("../resources/newsfeeds.csv")
     resources = resources[resources['label'] == 'crypto']
     resources = resources[resources['format'] == 'website']
 
@@ -51,6 +52,7 @@ def fetch_news(interval):
     df = pd.DataFrame.from_dict(news_list)
     return df
 
+
 def filter_by_keywords(feed_df, keyword):
     feed_df['contains'] = False
     for k in keyword:
@@ -74,5 +76,5 @@ def fetch_crypto_news(keywords, top_n, interval=24):
     return result
 
 
-r = fetch_crypto_news(["xrp", 'ripple'], 10)
+r = fetch_crypto_news(["btc", 'bitcoin'], 10)
 print(r)
