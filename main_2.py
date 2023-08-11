@@ -8,7 +8,7 @@ import certifi
 import json, hmac, hashlib, time, base64
 from datetime import datetime, timedelta
 import datetime as DT
-from functions import create_text, push_post
+from functions import create_text, push_post, fetch_crypto_news
 def main():
     url_cmc = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
     url_binance = 'https://api.binance.com/api/v3/ticker/24hr'
@@ -61,10 +61,13 @@ def main():
         }
         url_cmc_cap = f'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol={coin}'
         data_cmc_cap = requests.get(url_cmc_cap, headers=headers).json()
-        if float(round(data_cmc_cap['data'][f'{coin}']['quote']['USD']['market_cap'])) > 0:
-            return float(round(data_cmc_cap['data'][f'{coin}']['quote']['USD']['market_cap']))
-        else:
-            return float(round(data_cmc_cap['data'][f'{coin}']['quote']['USD']['fully_diluted_market_cap']))
+        try:
+            if float(round(data_cmc_cap['data'][f'{coin}']['quote']['USD']['market_cap'])) > 0:
+                return float(round(data_cmc_cap['data'][f'{coin}']['quote']['USD']['market_cap']))
+            else:
+                return float(round(data_cmc_cap['data'][f'{coin}']['quote']['USD']['fully_diluted_market_cap']))
+        except KeyError:
+            return 0
 
     def cut(num):
         num = round(num, 2)
@@ -207,6 +210,46 @@ def main():
     okex_gain_text = ''
     okex_los_text = ''
 
+    news = ['okex', 'binance', 'coinbase']
+
+    for names in range(3):
+        news.append(binance_gain_names[names][:-5].lower())
+        news.append(binance_los_names[names][:-5].lower())
+        news.append(cb_gain_names[names][:-5].lower())
+        news.append(cb_los_names[names][:-5].lower())
+        news.append(okex_gain_names[names][:-5].lower())
+        news.append(okex_los_names[names][:-5].lower())
+
+        news.append(binance_hike_names[names].lower())
+        news.append(binance_drop_names[names].lower())
+        news.append(cb_hike_names[names].lower())
+        news.append(cb_drop_names[names].lower())
+        news.append(okex_hike_names[names].lower())
+        news.append(okex_drop_names[names].lower())
+
+    news_5 = fetch_crypto_news(news, 5)
+    news_text = ''
+
+    def source_text(link):
+        character_1 = 'h'
+        character_2 = '/'
+        count_1 = 2
+        count_2 = 3
+        index_1 = 1
+        index_2 = -1
+        for j in range(count_1):
+            index_1 = link.find(character_1, index_1 + 1)
+        for i in range(count_2):
+            index_2 = link.find(character_2, index_2 + 1)
+        if index_2 != -1:
+            result = link[index_1:index_2]
+            return result
+        else:
+            return 'Error'
+
+    for news_value in range (len(news_5)):
+        news_text += news_5[news_value] + f'\n<p><strong>Source: {source_text(news_5[news_value])}</strong></p>'
+
     for gain_los in range(3):
         binance_gain_text += f"<li>{binance_gain_names[gain_los]} - {binance_gain_prices[gain_los]}$, {binance_gain_changes[gain_los]}%, {binance_gain_vols[gain_los]}$ </li>"
         binance_los_text += f"<li>{binance_los_names[gain_los]} - {binance_los_prices[gain_los]}$, {binance_los_changes[gain_los]}%, {binance_los_vols[gain_los]}$ </li>"
@@ -234,10 +277,10 @@ def main():
     text_all = create_text('text')
 
     lst1 = [top3, binance_gain_text, cb_gain_text, okex_gain_text, binance_hike_text, cb_hike_text, okex_hike_text,
-            binance_los_text, cb_los_text, okex_los_text, binance_drop_text, cb_drop_text, okex_drop_text]
+            binance_los_text, cb_los_text, okex_los_text, binance_drop_text, cb_drop_text, okex_drop_text, news_text]
 
     lst2 = ['{top3}', '{binance_gain_text}', '{cb_gain_text}', '{okex_gain_text}', '{binance_hike_text}', '{cb_hike_text}', '{okex_hike_text}',
-            '{binance_los_text}', '{cb_los_text}', '{okex_los_text}', '{binance_drop_text}', '{cb_drop_text}', '{okex_drop_text}']
+            '{binance_los_text}', '{cb_los_text}', '{okex_los_text}', '{binance_drop_text}', '{cb_drop_text}', '{okex_drop_text}', '{news_text}']
 
     for i in range(len(lst1)):
         if lst2[i] in text_all:
@@ -245,5 +288,6 @@ def main():
         if lst2[i] in title:
             title = title.replace(lst2[i], str(lst1[i]))
     print('Text created')
+
     push_post(title, text_all)
 main()

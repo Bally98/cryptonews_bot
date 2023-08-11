@@ -42,6 +42,14 @@
         "main_text":{
             "0":"<h3>Binance</h3>\n<p><ul>{binance_drop_text}</ul></p>\n<h3>Coinbase</h3>\n<p><ul>{cb_drop_text}</ul></p>\n<h3>OKEX</h3>\n<p><ul>{okex_drop_text}</ul></p>"
         }
+    },
+    "5":{
+        "title":{
+            "0":"<h2>Context:</h2>"
+        },
+        "main_text":{
+            "0":"{news_text}"
+        }
     }
 }
 
