@@ -8,7 +8,7 @@ import pandas as pd
 from tqdm import tqdm
 from lxml import etree
 from datetime import datetime, timedelta, timezone
-def push_post(title, text_all):
+def push_post(title, text_all, img):
 
     with open('client.json') as file:
         data = json.load(file)
@@ -29,6 +29,7 @@ def push_post(title, text_all):
         'status': f'{type_status}',  # тип
         'content': text_all,
         'categories': category, # category ID
+        'meta': {'_knawatfibu_url': img}
     }
 
     response = requests.post(url, headers=header, json=post).json()

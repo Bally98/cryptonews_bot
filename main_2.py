@@ -227,7 +227,7 @@ def main():
         news.append(okex_hike_names[names].lower())
         news.append(okex_drop_names[names].lower())
 
-    news_5 = fetch_crypto_news(news, 5)
+     # news_5 = fetch_crypto_news(news, 5)
     news_text = ''
 
     def source_text(link):
@@ -247,8 +247,8 @@ def main():
         else:
             return 'Error'
 
-    for news_value in range (len(news_5)):
-        news_text += news_5[news_value] + f'\n<p><strong>Source: {source_text(news_5[news_value])}</strong></p>'
+    # for news_value in range (len(news_5)):
+    #     news_text += news_5[news_value] + f'\n<p><strong>Source: {source_text(news_5[news_value])}</strong></p>'
 
     for gain_los in range(3):
         binance_gain_text += f"<li>{binance_gain_names[gain_los]} - {binance_gain_prices[gain_los]}$, {binance_gain_changes[gain_los]}%, {binance_gain_vols[gain_los]}$ </li>"
@@ -266,12 +266,12 @@ def main():
     okex_drop_text = ''
 
     for hike_drop in range(3):
-        binance_hike_text += f"<li>{binance_hike_names[hike_drop]}: {binance_hike_price_changes[hike_drop]}% (Market cap for now: {binance_hike_cap[hike_drop]})$</li>"
-        binance_drop_text += f"<li>{binance_drop_names[hike_drop]}: {binance_drop_price_changes[hike_drop]}% (Market cap for now: {binance_drop_cap[hike_drop]})$</li>"
-        cb_hike_text += f"<li>{cb_hike_names[hike_drop]}: {cb_hike_price_changes[hike_drop]}% (Market cap for now: {cb_hike_cap[hike_drop]})$</li>"
-        cb_drop_text += f"<li>{cb_drop_names[hike_drop]}: {cb_drop_price_changes[hike_drop]}% (Market cap for now: {cb_drop_cap[hike_drop]})$</li>"
-        okex_hike_text += f"<li>{okex_hike_names[hike_drop]}: {okex_hike_price_changes[hike_drop]}% (Market cap for now: {okex_hike_cap[hike_drop]})$</li>"
-        okex_drop_text += f"<li>{okex_drop_names[hike_drop]}: {okex_drop_price_changes[hike_drop]}% (Market cap for now: {okex_drop_cap[hike_drop]})$</li>"
+        binance_hike_text += f"<li>{binance_hike_names[hike_drop]}: {binance_hike_price_changes[hike_drop]}% (Market cap for now: {binance_hike_cap[hike_drop]}$)</li>"
+        binance_drop_text += f"<li>{binance_drop_names[hike_drop]}: {binance_drop_price_changes[hike_drop]}% (Market cap for now: {binance_drop_cap[hike_drop]}$)</li>"
+        cb_hike_text += f"<li>{cb_hike_names[hike_drop]}: {cb_hike_price_changes[hike_drop]}% (Market cap for now: {cb_hike_cap[hike_drop]}$)</li>"
+        cb_drop_text += f"<li>{cb_drop_names[hike_drop]}: {cb_drop_price_changes[hike_drop]}% (Market cap for now: {cb_drop_cap[hike_drop]}$)</li>"
+        okex_hike_text += f"<li>{okex_hike_names[hike_drop]}: {okex_hike_price_changes[hike_drop]}% (Market cap for now: {okex_hike_cap[hike_drop]}$)</li>"
+        okex_drop_text += f"<li>{okex_drop_names[hike_drop]}: {okex_drop_price_changes[hike_drop]}% (Market cap for now: {okex_drop_cap[hike_drop]}$)</li>"
 
     title = create_text('title')
     text_all = create_text('text')
@@ -288,6 +288,6 @@ def main():
         if lst2[i] in title:
             title = title.replace(lst2[i], str(lst1[i]))
     print('Text created')
-
-    push_post(title, text_all)
+    pic = 'https://techbullion.com/wp-content/uploads/2022/11/A-guide-to-creating-your-own-cryptocurrency.jpg'
+    push_post(title, text_all, pic)
 main()
