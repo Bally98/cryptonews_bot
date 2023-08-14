@@ -1,4 +1,5 @@
 import requests
+import cv2
 from tqdm import tqdm
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
@@ -288,6 +289,10 @@ def main():
         if lst2[i] in title:
             title = title.replace(lst2[i], str(lst1[i]))
     print('Text created')
-    pic = 'https://techbullion.com/wp-content/uploads/2022/11/A-guide-to-creating-your-own-cryptocurrency.jpg'
-    push_post(title, text_all, pic)
+    # pic = 'https://techbullion.com/wp-content/uploads/2022/11/A-guide-to-creating-your-own-cryptocurrency.jpg'
+    # btc = open('btc.jpeg', 'rb')
+    img = cv2.imread('btc.jpeg')
+    string_img = base64.b64encode(cv2.imencode('.jpg', img)[1]).decode()
+    push_post(title, text_all, string_img)
 main()
+
