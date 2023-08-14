@@ -17,7 +17,7 @@ background = Image.open("background_crypto.jpg")
 
 title_text = 'The biggest cryptos of the last 24h'
 coin_text = 'SOL'
-exchange_text = 'Binance:'
+exchange_text = 'Binance'
 percent_text = '28.5%'
 date_text = 'August 14 2023'
 
@@ -35,7 +35,7 @@ coin = ImageDraw.Draw(background)
 coin.text((780, 600), coin_text, anchor='ms', font=font_coin, fill='white')
 
 exchange = ImageDraw.Draw(background)
-exchange.text((450, 450), exchange_text, anchor='ms', font=font_exchange, fill='white')
+exchange.text((965, 430), exchange_text, anchor='ms', font=font_exchange, fill='white')
 
 percent = ImageDraw.Draw(background)
 percent.text((1050, 600), percent_text, anchor='ms', font=font_percent, fill='white')
@@ -45,5 +45,5 @@ date.text((965, 950), date_text, anchor='ms', font=font_date, fill='white')
 
 
 
-background.show()
+background.save('back2.jpg')
 
