@@ -29,10 +29,10 @@ def push_post(title, text_all, img):
         'status': f'{type_status}',  # тип
         'content': text_all,
         'categories': category,  # category ID
-        'image': img
+        'meta': {'_knawatfibu_url': img}
     }
 
-    response = requests.post(url, headers=header, json=post).json()
+    response = requests.post(url, headers=header, json=post)
 
     print("Posted")
 

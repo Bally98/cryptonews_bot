@@ -10,6 +10,7 @@ import json, hmac, hashlib, time, base64
 from datetime import datetime, timedelta
 import datetime as DT
 from functions import create_text, push_post, fetch_crypto_news
+from PIL import Image, ImageDraw, ImageFont
 def main():
     url_cmc = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
     url_binance = 'https://api.binance.com/api/v3/ticker/24hr'
@@ -122,7 +123,7 @@ def main():
     change_sorted_data = sorted(binance_filterred_hike_2, key=lambda x: float(x["priceChangePercent"]), reverse=True)
 
     binance_hike_names = [item["symbol"][:-4] for item in change_sorted_data[:3]]
-    binance_hike_price_changes = [item["priceChangePercent"] for item in change_sorted_data[:3]]
+    binance_hike_price_changes = [cut(float(item["priceChangePercent"])) for item in change_sorted_data[:3]]
 
     binance_drop_names = [item["symbol"][:-4] for item in change_sorted_data[-3:]]
     binance_drop_price_changes = [item["priceChangePercent"] for item in change_sorted_data[-3:]]
@@ -185,7 +186,7 @@ def main():
     okex_change_sorted_data = sorted(okex_filterred_hike_2, key=lambda x: float(round((float(x['last']) / float(x['open24h']) * 100 - 100), 2)),
                                      reverse=True)
     okex_hike_names = [item["instId"][:-5] for item in okex_change_sorted_data[:3]]
-    okex_hike_price_changes = [round((float(item['last']) / float(item['open24h']) * 100 - 100), 2) for item in
+    okex_hike_price_changes = [cut((float(item['last']) / float(item['open24h']) * 100 - 100)) for item in
                                okex_change_sorted_data[:3]]
     okex_drop_names = [item["instId"][:-5] for item in okex_change_sorted_data[-3:]]
     okex_drop_price_changes = [round((float(item['last']) / float(item['open24h']) * 100 - 100), 2) for item in
@@ -228,7 +229,7 @@ def main():
         news.append(okex_hike_names[names].lower())
         news.append(okex_drop_names[names].lower())
 
-     # news_5 = fetch_crypto_news(news, 5)
+    news_5 = fetch_crypto_news(news, 5)
     news_text = ''
 
     def source_text(link):
@@ -248,8 +249,8 @@ def main():
         else:
             return 'Error'
 
-    # for news_value in range (len(news_5)):
-    #     news_text += news_5[news_value] + f'\n<p><strong>Source: {source_text(news_5[news_value])}</strong></p>'
+    for news_value in range (len(news_5)):
+        news_text += news_5[news_value] + f'\n<p><strong>Source: {source_text(news_5[news_value])}</strong></p>'
 
     for gain_los in range(3):
         binance_gain_text += f"<li>{binance_gain_names[gain_los]} - {binance_gain_prices[gain_los]}$, {binance_gain_changes[gain_los]}%, {binance_gain_vols[gain_los]}$ </li>"
@@ -274,6 +275,77 @@ def main():
         okex_hike_text += f"<li>{okex_hike_names[hike_drop]}: {okex_hike_price_changes[hike_drop]}% (Market cap for now: {okex_hike_cap[hike_drop]}$)</li>"
         okex_drop_text += f"<li>{okex_drop_names[hike_drop]}: {okex_drop_price_changes[hike_drop]}% (Market cap for now: {okex_drop_cap[hike_drop]}$)</li>"
 
+    exchange_name = ''
+    max_coin = ''
+
+    all_hikes = []
+    for hike in range(3):
+        all_hikes.append(float(binance_hike_price_changes[hike]))
+        all_hikes.append(float(cb_hike_price_changes[hike]))
+        all_hikes.append(float(okex_hike_price_changes[hike]))
+    all_hikes_names = []
+    for coin_name in range(3):
+        all_hikes_names.append(binance_hike_names[coin_name])
+        all_hikes_names.append(cb_hike_names[coin_name])
+        all_hikes_names.append(okex_hike_names[coin_name])
+
+    max_coin = all_hikes_names[all_hikes.index(max(all_hikes))]
+    if max(all_hikes) in binance_hike_price_changes:
+        exchange_name = 'BINANCE'
+    elif max(all_hikes) in cb_hike_price_changes:
+        exchange_name = 'Coinbase'
+    elif max(all_hikes) in okex_hike_price_changes:
+        exchange_name = 'OKEX'
+    max_hike = max(all_hikes)
+
+    date = str(datetime.today())[:10]
+    date_2 = datetime.strptime(date, '%Y-%m-%d')
+    full_date = date_2.strftime('%B %d %Y')
+    def create_preview():
+
+        def get_text_dimensions(text_string, font):
+            ascent, descent = font.getmetrics()
+
+            text_width = font.getmask(text_string).getbbox()[2]
+            text_height = font.getmask(text_string).getbbox()[3] + descent
+
+            return (text_width, text_height)
+
+        background = Image.open("Banner.jpg")
+        img_width, img_height = background.size
+
+        coin_text = max_coin
+        exchange_text = exchange_name
+        percent_text = f'{max_hike}%'
+        date_text = full_date
+
+        font_coin = ImageFont.truetype('Martian Fonts - Martian Grotesk UWd Md.ttf', size=50)
+        font_exchange = ImageFont.truetype('Martian Fonts - Martian Grotesk XWd XBd.ttf', size=30)
+        font_percent = ImageFont.truetype('Martian Fonts - Martian Grotesk Nr Th.ttf', size=110)
+        font_date = ImageFont.truetype('Exo-Bold.ttf', size=25)
+
+        coin_text_width, coin_text_height = get_text_dimensions(coin_text, font_coin)
+        coordinat_coin = img_width - coin_text_width - 480
+        coin = ImageDraw.Draw(background)
+        coin.text((coordinat_coin, 250), coin_text, font=font_coin, fill='white')
+
+        percent_text_width, percent_text_height = get_text_dimensions(percent_text, font_percent)
+        coordinat_percent = img_width - percent_text_width - 480
+        percent = ImageDraw.Draw(background)
+        percent.text((coordinat_percent, 310), percent_text, font=font_percent, fill='white')
+
+        exchange_text_width, exchange_text_height = get_text_dimensions(exchange_text, font_exchange)
+        coordinat_exchange = img_width - exchange_text_width - 480
+        exchange = ImageDraw.Draw(background)
+        exchange.text((coordinat_exchange, 460), exchange_text, font=font_exchange, fill='white')
+
+        date = ImageDraw.Draw(background)
+        date.text((50, 730), date_text, font=font_date, fill='white', align='left')
+
+        return background.save('123.jpg')
+    create_preview()
+
+
     title = create_text('title')
     text_all = create_text('text')
 
@@ -289,10 +361,15 @@ def main():
         if lst2[i] in title:
             title = title.replace(lst2[i], str(lst1[i]))
     print('Text created')
-    # pic = 'https://techbullion.com/wp-content/uploads/2022/11/A-guide-to-creating-your-own-cryptocurrency.jpg'
+    pic = 'https://www.colorado.edu/ecenter/sites/default/files/styles/medium/public/article-thumbnail/cryptocurrency.png?itok=HHvIzV6z'
     # btc = open('btc.jpeg', 'rb')
-    img = cv2.imread('btc.jpeg')
-    string_img = base64.b64encode(cv2.imencode('.jpg', img)[1]).decode()
-    push_post(title, text_all, string_img)
+    # img = cv2.imread('btc.jpeg')
+    # string_img = base64.b64encode(cv2.imencode('.jpg', img)[1]).decode()
+    # print(binance_hike_names)
+    # print(cb_hike_names)
+    # print(okex_hike_names)
+    # print(binance_hike_price_changes)
+    # print(cb_hike_price_changes)
+    # print(okex_hike_price_changes)
+    push_post(title, text_all, pic)
 main()
-
