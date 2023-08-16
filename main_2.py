@@ -1,5 +1,4 @@
 import requests
-import cv2
 from tqdm import tqdm
 from requests import Request, Session
 from requests.exceptions import ConnectionError, Timeout, TooManyRedirects
@@ -11,7 +10,14 @@ from datetime import datetime, timedelta
 import datetime as DT
 from functions import create_text, push_post, fetch_crypto_news
 from PIL import Image, ImageDraw, ImageFont
+
+
+from connectors.open_ai import GptAi
+
 def main():
+
+    open_ai = GptAi()
+
     url_cmc = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
     url_binance = 'https://api.binance.com/api/v3/ticker/24hr'
     url_coinbase = "https://api.coinbase.com/api/v3/brokerage/products?product_type=SPOT"
@@ -202,8 +208,10 @@ def main():
         okex_drop_cap[cap_value] =  format_number(get_cap_cmc(okex_drop_names[cap_value]))
 
     top3 = ''
+    temp_variable_for_tops = ''
     for top3_value in range(3):
         top3 += f"<li>{top_names[top3_value]} - {top_volumes_24h[top3_value]}%</li>"
+        temp_variable_for_tops+= f"{top_names[top3_value]} - {top_volumes_24h[top3_value]}%, "
 
     binance_gain_text = ''
     binance_los_text = ''
@@ -345,8 +353,8 @@ def main():
         return background.save('123.jpg')
     create_preview()
 
-
-    title = create_text('title')
+    title_promt = f'Write a headline, without time and dates and with all coin percentages, that will indicate that trading on a crypto exchange closed with the values of such coins - {temp_variable_for_tops}.'
+    title = open_ai.generate_title(title_promt)
     text_all = create_text('text')
 
     lst1 = [top3, binance_gain_text, cb_gain_text, okex_gain_text, binance_hike_text, cb_hike_text, okex_hike_text,
@@ -358,8 +366,7 @@ def main():
     for i in range(len(lst1)):
         if lst2[i] in text_all:
             text_all = text_all.replace(lst2[i], str(lst1[i]))
-        if lst2[i] in title:
-            title = title.replace(lst2[i], str(lst1[i]))
+        
     print('Text created')
     pic = 'https://www.colorado.edu/ecenter/sites/default/files/styles/medium/public/article-thumbnail/cryptocurrency.png?itok=HHvIzV6z'
     # btc = open('btc.jpeg', 'rb')
@@ -372,4 +379,5 @@ def main():
     # print(cb_hike_price_changes)
     # print(okex_hike_price_changes)
     push_post(title, text_all, pic)
+    print()
 main()
