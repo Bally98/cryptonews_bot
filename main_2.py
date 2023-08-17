@@ -334,7 +334,7 @@ def main():
         date = ImageDraw.Draw(background)
         date.text((50, 730), date_text, font=font_date, fill='white', align='left')
 
-        return background.save('123.jpg')
+        return background.save('pics/generated_preview.jpg')
     create_preview()
 
     title_promt = f'Write a headline, without time and dates and with all coin percentages, that will indicate that trading on a crypto exchange closed with the values of such coins - {temp_variable_for_tops}.'
