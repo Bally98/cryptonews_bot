@@ -11,7 +11,7 @@ def fetch_news(interval):
         print("It's the weekend. Stopping the code.")
         return pd.DataFrame.from_dict({})
 
-    resources = pd.read_csv("newsfeeds.csv")
+    resources = pd.read_csv("")
     resources = resources[resources['label'] == 'crypto']
     resources = resources[resources['format'] == 'website']
 
@@ -21,7 +21,7 @@ def fetch_news(interval):
     news_list = []
     for index, row in tqdm(resources.iterrows(), total=resources.shape[0]):
         feed_url = row['feeds']
-        source_name = row['name']  # Assuming the name column is present in newsfeeds.csv
+        source_name = row['name']  # Assuming the name column is present in
 
         if not feed_url:
             continue

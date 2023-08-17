@@ -12,7 +12,7 @@ def fetch_news(interval):
         print("It's the weekend. Stopping the code.")
         return pd.DataFrame.from_dict({})
 
-    resources = pd.read_csv("../resources/newsfeeds.csv")
+    resources = pd.read_csv("")
     resources = resources[resources['label'] == 'crypto']
     resources = resources[resources['format'] == 'website']
 

@@ -240,25 +240,9 @@ def main():
     news_5 = fetch_crypto_news(news, 5)
     news_text = ''
 
-    def source_text(link):
-        character_1 = 'h'
-        character_2 = '/'
-        count_1 = 2
-        count_2 = 3
-        index_1 = 1
-        index_2 = -1
-        for j in range(count_1):
-            index_1 = link.find(character_1, index_1 + 1)
-        for i in range(count_2):
-            index_2 = link.find(character_2, index_2 + 1)
-        if index_2 != -1:
-            result = link[index_1:index_2]
-            return result
-        else:
-            return 'Error'
 
     for news_value in range (len(news_5)):
-        news_text += news_5[news_value] + f'\n<p><strong>Source: {source_text(news_5[news_value])}</strong></p>'
+        news_text += news_5[news_value]
 
     for gain_los in range(3):
         binance_gain_text += f"<li>{binance_gain_names[gain_los]} - {binance_gain_prices[gain_los]}$, {binance_gain_changes[gain_los]}%, {binance_gain_vols[gain_los]}$ </li>"
@@ -319,7 +303,7 @@ def main():
 
             return (text_width, text_height)
 
-        background = Image.open("Banner.jpg")
+        background = Image.open("pics/Banner.jpg")
         img_width, img_height = background.size
 
         coin_text = max_coin
@@ -327,10 +311,10 @@ def main():
         percent_text = f'{max_hike}%'
         date_text = full_date
 
-        font_coin = ImageFont.truetype('Martian Fonts - Martian Grotesk UWd Md.ttf', size=50)
-        font_exchange = ImageFont.truetype('Martian Fonts - Martian Grotesk XWd XBd.ttf', size=30)
-        font_percent = ImageFont.truetype('Martian Fonts - Martian Grotesk Nr Th.ttf', size=110)
-        font_date = ImageFont.truetype('Exo-Bold.ttf', size=25)
+        font_coin = ImageFont.truetype('fonts/Martian Fonts - Martian Grotesk UWd Md.ttf', size=50)
+        font_exchange = ImageFont.truetype('fonts/Martian Fonts - Martian Grotesk XWd XBd.ttf', size=30)
+        font_percent = ImageFont.truetype('fonts/Martian Fonts - Martian Grotesk Nr Th.ttf', size=110)
+        font_date = ImageFont.truetype('fonts/Exo-Bold.ttf', size=25)
 
         coin_text_width, coin_text_height = get_text_dimensions(coin_text, font_coin)
         coordinat_coin = img_width - coin_text_width - 480
