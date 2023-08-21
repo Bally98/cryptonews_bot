@@ -7,7 +7,7 @@ class GptAi():
     def __init__(self) -> None:
         pass
 
-    def generate_title(self, prompt: str, tokens=250):
+    def generate_title(self, prompt: str, tokens=150):
 
         prev_headings = []
         final_heading = ''
@@ -31,15 +31,12 @@ class GptAi():
                 final_heading = find_best_heading
         
         return final_heading
-        
+text = 'Top cryptos on binance in terms of trading volumes:BTC-TUSD 1.850.534.745$, BTC-USDT  1.129.658.904$, ETH-USDT 449.375.622$'
 
+# text = 'Top gainers Binance:BTC-TUSD volume 1.850.534.745$ '
 
 if __name__ == '__main__':
     fw = GptAi()
-    g = f"Write the headline that stock exchange NYSE closed with a quote reading of 2.75%."\
-                    f"And add a closed lock emoji to the beginning of the header in this format '&#x1F512; ' The headline should be short, catchy and unique, unlike any of the previous ones: "
-
-    s = fw.generate_title(
-        g
-    )
+    g = f"Comment on this: {text}"
+    s = fw.generate_title(g)
     print(s)

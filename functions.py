@@ -24,17 +24,25 @@ def push_post(title, text_all, img):
     token = base64.b64encode(credentials.encode())
     header = {'Authorization': 'Basic ' + token.decode('utf-8')}
 
+    image_path = 'pics/generated_preview.jpg'
+
+    with open(image_path, 'rb') as image_file:
+        encoded_img = base64.b64encode(image_file.read()).decode('utf-8')
+
     post = {
         'title': title,
         'status': f'{type_status}',  # тип
         'content': text_all,
         'categories': category,  # category ID
-        'meta': {'_knawatfibu_url': img}
+        'meta': {'_knawatfibu_url': 'data:image/jpeg;base64,'+ encoded_img}
     }
 
     response = requests.post(url, headers=header, json=post)
 
-    print("Posted")
+    if response.status_code == 200 or 201:
+        print("Posted")
+    else:
+        print(f'Error. Status code: {response.status_code}')
 
 
 def create_text(format_texts):

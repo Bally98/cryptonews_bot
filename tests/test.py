@@ -22,7 +22,7 @@ def get_text_dimensions(text_string, font):
 
     return (text_width, text_height)
 
-background = Image.open("Banner.jpg")
+background = Image.open("pics/Banner.jpg")
 img_width, img_height = background.size
 
 coin_text = 'PAXG'

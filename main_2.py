@@ -337,22 +337,40 @@ def main():
         return background.save('pics/generated_preview.jpg')
     create_preview()
 
+    head_static = 'Every day we look through the data from the biggest crypto exchanges to collect the most important stat about cryptos'
+    head_promt = f'write a text that is similar in meaning and size: {head_static}'
+    head_text = open_ai.generate_title(head_promt)
+
+    gainers_promt = f'briefly сomment on top gainers with 24h volume {binance_gain_names[0]} {binance_gain_vols[0]}, {cb_gain_names[0]} {cb_gain_vols[0]}, {okex_gain_names[0]} {okex_gain_vols[0]}'
+    gainers_text = open_ai.generate_title(gainers_promt)
+
+    hike_promt = f'briefly сomment on top price hikes {binance_hike_names[0]} {binance_hike_price_changes[0]} {cb_hike_names[0]} {cb_hike_price_changes[0]} {okex_hike_names[0]} {okex_hike_price_changes[0]}'
+    hike_text = open_ai.generate_title(hike_promt)
+
+    losers_promt = f'briefly сomment on top losers with 24h volume {binance_los_names[0]} {binance_los_vols[0]}, {cb_los_names[0]} {cb_los_vols[0]}, {okex_los_names[0]} {okex_los_vols[0]}'
+    losers_text = open_ai.generate_title(losers_promt)
+
+    drop_promt = f'briefly сomment on top price drops {binance_drop_names[0]} {binance_drop_price_changes[0]} {cb_drop_names[0]} {cb_drop_price_changes[0]} {okex_drop_names[0]} {okex_drop_price_changes[0]}'
+    drop_text = open_ai.generate_title(drop_promt)
+
+
     title_promt = f'Write a headline, without time and dates and with all coin percentages, that will indicate that trading on a crypto exchange closed with the values of such coins - {temp_variable_for_tops}.'
     title = open_ai.generate_title(title_promt)
     text_all = create_text('text')
 
-    lst1 = [top3, binance_gain_text, cb_gain_text, okex_gain_text, binance_hike_text, cb_hike_text, okex_hike_text,
-            binance_los_text, cb_los_text, okex_los_text, binance_drop_text, cb_drop_text, okex_drop_text, news_text]
+    lst1 = [head_text, top3, gainers_text, binance_gain_text, cb_gain_text, okex_gain_text, hike_text, binance_hike_text, cb_hike_text, okex_hike_text,losers_text,
+            binance_los_text, cb_los_text, okex_los_text, drop_text, binance_drop_text, cb_drop_text, okex_drop_text, news_text]
 
-    lst2 = ['{top3}', '{binance_gain_text}', '{cb_gain_text}', '{okex_gain_text}', '{binance_hike_text}', '{cb_hike_text}', '{okex_hike_text}',
-            '{binance_los_text}', '{cb_los_text}', '{okex_los_text}', '{binance_drop_text}', '{cb_drop_text}', '{okex_drop_text}', '{news_text}']
+    lst2 = ['{head_text}', '{top3}', '{gainers_text}', '{binance_gain_text}', '{cb_gain_text}', '{okex_gain_text}', '{hike_text}', '{binance_hike_text}', '{cb_hike_text}', '{okex_hike_text}', '{losers_text}',
+            '{binance_los_text}', '{cb_los_text}', '{okex_los_text}', '{drop_text}', '{binance_drop_text}', '{cb_drop_text}', '{okex_drop_text}', '{news_text}']
 
     for i in range(len(lst1)):
         if lst2[i] in text_all:
             text_all = text_all.replace(lst2[i], str(lst1[i]))
         
     print('Text created')
-    pic = 'https://www.colorado.edu/ecenter/sites/default/files/styles/medium/public/article-thumbnail/cryptocurrency.png?itok=HHvIzV6z'
+    pic = 'pics/generated_preview.jpg'
+    # pic = 'https://www.colorado.edu/ecenter/sites/default/files/styles/medium/public/article-thumbnail/cryptocurrency.png?itok=HHvIzV6z'
     # btc = open('btc.jpeg', 'rb')
     # img = cv2.imread('btc.jpeg')
     # string_img = base64.b64encode(cv2.imencode('.jpg', img)[1]).decode()
@@ -363,5 +381,5 @@ def main():
     # print(cb_hike_price_changes)
     # print(okex_hike_price_changes)
     push_post(title, text_all, pic)
-    print()
+
 main()

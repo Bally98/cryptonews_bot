@@ -4,7 +4,7 @@
     },
     "0":{
         "title":{
-            "0":"<p><strong>Every day we look through the data from the biggest crypto exchanges to collect the most important stat about cryptos</strong></p>\n<h2>The biggest cryptos of the last 24h</h2>"
+            "0":"<p><strong>{head_text}</strong></p>\n<h2>The biggest cryptos of the last 24h</h2>"
         },
         "main_text":{
             "0":"<p><ul>{top3}</ul></p>"
@@ -15,13 +15,13 @@
             "0":""
         },
         "main_text":{
-            "0":"<h2>Top gainers</h2>\n<p><strong>Binance:</strong></p>\n<p><ul>{binance_gain_text}</ul></p>\n<p><strong>Coinbase:</strong></p>\n<p><ul>{cb_gain_text}</ul></p>\n<p><strong>OKEX:</strong></p>\n<p><ul>{okex_gain_text}</ul></p>"
+            "0":"<h2>Top gainers</h2>\n<p>{gainers_text}</p>\n<p><strong>Binance:</strong></p>\n<p><ul>{binance_gain_text}</ul></p>\n<p><strong>Coinbase:</strong></p>\n<p><ul>{cb_gain_text}</ul></p>\n<p><strong>OKEX:</strong></p>\n<p><ul>{okex_gain_text}</ul></p>"
 
         }
     },
     "2":{
         "title":{
-            "0":"<h2>&#x1F4C8;The biggest price hike today:</h2>"
+            "0":"<h2>&#x1F4C8;The biggest price hike today:</h2>\n<p>{hike_text}</p>"
         },
         "main_text":{
             "0":"<p><strong>Binance:</strong></p>\n<p><ul>{binance_hike_text}</ul></p>\n<p><strong>Coinbase:</strong></p>\n<p><ul>{cb_hike_text}</ul></p>\n<p><strong>OKEX:</strong></p>\n<p><ul>{okex_hike_text}</ul></p>"
@@ -29,7 +29,7 @@
     },
     "3":{
         "title":{
-            "0":"<h2>Top losers</h2>"
+            "0":"<h2>Top losers</h2>\n<p>{losers_text}</p>"
         },
         "main_text":{
             "0":"<p><strong>Binance:</strong></p>\n<p><ul>{binance_los_text}</ul></p>\n<p><strong>Coinbase:</strong></p>\n<p><ul>{cb_los_text}</ul></p>\n<p><strong>OKEX:</strong></p>\n<p><ul>{okex_los_text}</ul></p>"
@@ -37,7 +37,7 @@
     },
     "4":{
         "title":{
-            "0":"<h2>&#x1F4C9;The biggest price drop today:</h2>"
+            "0":"<h2>&#x1F4C9;The biggest price drop today:</h2>\n<p>{drop_text}</p>"
         },
         "main_text":{
             "0":"<p><strong>Binance:</strong></p>\n<p><ul>{binance_drop_text}</ul></p>\n<p><strong>Coinbase:</strong></p>\n<p><ul>{cb_drop_text}</ul></p>\n<p><strong>OKEX:</strong></p>\n<p><ul>{okex_drop_text}</ul></p>"
