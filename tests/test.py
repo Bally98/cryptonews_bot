@@ -1,78 +1,149 @@
-import pandas as pd
-from tqdm import tqdm
-from datetime import datetime, timedelta, timezone
-import plotly.express as px
-import pandas as pd
-from PIL import Image, ImageDraw, ImageFont
-import calendar, time
-from datetime import datetime, timedelta
-import datetime
-import json
-import os
-import requests
+class My_computer:
 
-from time import sleep
+    def __init__(self, os, ram):  # инициализация атрибутов класса
+        self.os = os
+        self.ram = ram
 
+    def __str__(self):  # магический метод для обращения к атрибуту путём вывода в понятном формате
+        return f'os name is {self.os}'
 
-def get_text_dimensions(text_string, font):
-    ascent, descent = font.getmetrics()
+    def __add__(self,
+                other):  # магический метод для сложения чисел и атрибутов класса(уделить внимание позиции числа при взаимодействии с классом)
+        print('__add__ called')
+        if isinstance(other, (int, float)):
+            return self.ram + other
 
-    text_width = font.getmask(text_string).getbbox()[2]
-    text_height = font.getmask(text_string).getbbox()[3] + descent
-
-    return (text_width, text_height)
-
-background = Image.open("pics/Banner.jpg")
-img_width, img_height = background.size
-
-coin_text = 'PAXG'
-exchange_text = 'OKEX'
-percent_text = '109.1%'
-date_text = 'May 16 2023'
-
-font_coin = ImageFont.truetype('Martian Fonts - Martian Grotesk UWd Md.ttf', size=50)
-font_exchange = ImageFont.truetype('Martian Fonts - Martian Grotesk XWd XBd.ttf', size=30)
-font_percent = ImageFont.truetype('Martian Fonts - Martian Grotesk Nr Th.ttf', size=110)
-font_date = ImageFont.truetype('Exo-Bold.ttf', size=25)
+    def __radd__(self,
+                 other):  # магический метод для унификации сложения чисел с атрибутами класса(теперь неважно где стоит число, справа или слева)
+        print('__radd__ called')
+        return self + other
+        # self.__price = price
+    # def print_data(self):
+    #     print(self.__os, self.__ram,self.__price)
 
 
-coin_text_width, coin_text_height = get_text_dimensions(coin_text, font_coin)
-coordinat_coin = img_width - coin_text_width - 480
-coin = ImageDraw.Draw(background)
-coin.text((coordinat_coin, 250), coin_text, font=font_coin, fill='white')
+# comp1 = My_computer('windows', 123)
+# print(1 + comp1)
+
+#Пример полиморфизма
+class Bmw:
+    def __init__(self, mark, color, year):
+        self.mark = mark
+        self.color = color
+        self.year = year
+
+    def __str__(self):
+        return 'BMW'
+
+    def get_info(self):
+        return f'Age    : {2023 - self.year}, {self.color} color'
 
 
-percent_text_width,percent_text_height = get_text_dimensions(percent_text, font_percent)
-coordinat_percent = img_width - percent_text_width - 480
-percent = ImageDraw.Draw(background)
-percent.text((coordinat_percent, 310), percent_text, font=font_percent, fill='white')
+class Audi:
+    def __init__(self, engine_capacity, color, year):
+        self.engine_capacity = engine_capacity
+        self.color = color
+        self.year = year
 
-exchange_text_width,exchange_text_height = get_text_dimensions(exchange_text, font_exchange)
-coordinat_exchange = img_width - exchange_text_width - 480
-exchange = ImageDraw.Draw(background)
-exchange.text((coordinat_exchange, 460), exchange_text, font=font_exchange, fill='white')
+    def __str__(self):
+        return 'Audi'
 
-date = ImageDraw.Draw(background)
-date.text((50, 730), date_text, font=font_date, fill='white', align='left')
-
+    def get_info(self):
+        return f'engine capacity:{self.engine_capacity}, Age:{2023 - self.year}'
 
 
-# print(img_width)
-background.show()
-# slogan = ImageDraw.Draw(background)
-# slogan.text((coordinat_slogan, 1150), slogan_text,  font=font_slogan, fill='white', align='right')
+class Mercedes:
+    def __init__(self, factory_manufacturer, color, year):
+        self.factory_manufacturer = factory_manufacturer
+        self.color = color
+        self.year = year
 
-# # Получите размеры изображения
-# ширина_изображения, высота_изображения = image.size
-#
-# # Получите размеры текста
-# ширина_текста, высота_текста = draw.textsize(текст, font=font)
-#
-# # Рассчитайте координату X для выравнивания по правому краю
-# x = ширина_изображения - ширина_текста - 10  # 10 - отступ от правого края
-#
-# # Добавьте текст на изображение с выравниванием по правому краю
-# draw.text((x, 10), текст, font=font, fill=(255, 255, 255))
-#
-# # Сохраните изображение с добавленным текстом
-# image.save('путь_к_сохраненному_изображению/новое_имя_изображения.jpg')  # Замените на нужный путь и имя
+    def __str__(self):
+        return 'Mercedes'
+
+    def get_info(self):
+        return f'factory{self.factory_manufacturer}, Age:{2023 - self.year}'
+
+
+bmw_350 = Bmw('BMW 350', 'black', 2019)
+audi_a7 = Audi(3.5, 'white', 2021)
+mercedes_e350 = Mercedes('Dresden', 'grey', 2008)
+list = [bmw_350, audi_a7, mercedes_e350]
+#for car in list:
+    #print(car, car.get_info())#вызов методов из разных классов с одним названием, но с разным функционалом
+
+
+#Пример инкапсуляции (ограничения доступа к объектам класса извне)
+class Pupils:
+    def __init__(self, name, age):
+        self.__name = name #Инициализируем приватные атрибуты двумя нижними подчёркиваниями
+        self.__age = age
+
+    def __str__(self):
+        return self.name
+
+    def get_info(self):#используем публичный метод для доступа к приватным атрибутам (этот метод также может быть приватным)
+        return self.__name
+
+pupil1 = Pupils('Tommy',12)
+pupil2 = Pupils('Bob',11)
+pupil3 = Pupils('John',16)
+
+# print(pupil1.__name)#при вызове атрибута напрямую из класса в доступе будет отказано
+# print(pupil2.__name)
+# print(pupil3.__name)
+# print()
+# print(pupil1.get_info())#вызов атрибута через публичный метод будет успешен
+# print(pupil2.get_info())
+# print(pupil3.get_info())
+
+
+class Main:
+
+    car = 'Audi'
+    def __init__(self, age, name):
+        self.age = age
+        self.name = name
+
+    def print_smthg():
+        print('Something')
+
+
+class Second(Main):
+    def __init__(self, height, weight):
+        self.height = height
+        self.weight = weight
+
+    def show(self):
+        print('Second class print')
+
+# x = Second
+
+# print(issubclass(Main, Second ))
+
+
+
+
+
+
+
+
+a = 'хуйхуйхуй'
+print(a[::-1])
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

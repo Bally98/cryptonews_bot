@@ -1,13 +1,13 @@
 import openai
 
-openai.api_key = "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"
+openai.api_key = "s0k-suCxili3xGY9ulJ3JZenT3BlbkFJRHJbQjeYSl9SZXqMFnKz"
 
 
 class GptAi():
     def __init__(self) -> None:
         pass
 
-    def generate_title(self, prompt: str, tokens=150):
+    def generate_title(self, prompt: str, tokens=200):
 
         prev_headings = []
         final_heading = ''

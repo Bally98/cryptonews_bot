@@ -11,11 +11,10 @@ import datetime as DT
 from functions import create_text, push_post, fetch_crypto_news
 from PIL import Image, ImageDraw, ImageFont
 
-
 from connectors.open_ai import GptAi
 
-def main():
 
+def main():
     open_ai = GptAi()
 
     url_cmc = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest'
@@ -23,18 +22,18 @@ def main():
     url_coinbase = "https://api.coinbase.com/api/v3/brokerage/products?product_type=SPOT"
     url_okex = "https://www.okx.com/api/v5/market/tickers?instType=SPOT"
 
-    api_key_cmc = '3c6565ce-18c1-4496-8727-02b12ece3299'
-    secretKey_coinbase = 'RjPwUtqwix3h6Nr0ng9ekjHyJh53ZIJh'
-    api_key_binance = 'ZWhBTWICgxOt67WrNNrP8j4WBKSpnvUj7cwJZ5QXlc6Cs2nM3w7QWZ4PEsQw1MvJ'
-    api_secret_binance = 'DLIHRHgEnOGTYCimOj7qRaGAvj3adA8oG37dVryDcqbxsRiWql4KAPlaKPlqE4Xg'
+    api_key_cmc = '30c6565ce-18c1-4496-8727-02b12ece3299'
+    secretKey_coinbase = 'R0jPwUtqwix3h6Nr0ng9ekjHyJh53ZIJh'
+    api_key_binance = 'Z0WhBTWICgxOt67WrNNrP8j4WBKSpnvUj7cwJZ5QXlc6Cs2nM3w7QWZ4PEsQw1MvJ'
+    api_secret_binance = 'D0LIHRHgEnOGTYCimOj7qRaGAvj3adA8oG37dVryDcqbxsRiWql4KAPlaKPlqE4Xg'
 
     timestamp = str(int(time.time()))
     payload = timestamp + "GET" + "/api/v3/brokerage/products".split('?')[0] + ""
     signature = hmac.new(secretKey_coinbase.encode('utf-8'), payload.encode('utf-8'), digestmod=hashlib.sha256).digest()
     headers_binance = {
-            'X-MBX-APIKEY': api_key_binance,
-            'X-MBX-SECRETKEY': api_secret_binance
-        }
+        'X-MBX-APIKEY': api_key_binance,
+        'X-MBX-SECRETKEY': api_secret_binance
+    }
     headers_coinbase = {
         'Content-Type': 'application/json',
         'CB-ACCESS-KEY': '3uvoymeXCMUqcfo2',
@@ -65,7 +64,7 @@ def main():
     def get_cap_cmc(coin):
         headers = {
             'Accepts': 'application/json',
-            'X-CMC_PRO_API_KEY': '3c6565ce-18c1-4496-8727-02b12ece3299',
+            'X-CMC_PRO_API_KEY': '30c6565ce-18c1-4496-8727-02b12ece3299',
         }
         url_cmc_cap = f'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest?symbol={coin}'
         data_cmc_cap = requests.get(url_cmc_cap, headers=headers).json()
@@ -103,7 +102,7 @@ def main():
     top_names = [item["name"] for item in top3_sorted[:3]]
     top_volumes_24h = [round(float(item['quote']['USD']['percent_change_24h']), 2) for item in top3_sorted[:3]]
 
-    #binance
+    # binance
     binance_filterred_gain_1 = [item for item in data_binance if
                                 item["symbol"].endswith("USDC") or item["symbol"].endswith("USDT") or item[
                                     "symbol"].endswith("TUSD")]
@@ -148,12 +147,12 @@ def main():
     cb_gain_prices = [format_number(float(item["price"])) for item in cb_volume_sorted_data[:3]]
     cb_gain_changes = [cut(float(item["price_percentage_change_24h"])) for item in cb_volume_sorted_data[:3]]
     cb_gain_vols = [format_number(float(item['volume_24h']) * float(item['price'])) for item in
-                   cb_volume_sorted_data[:3]]
+                    cb_volume_sorted_data[:3]]
     cb_los_names = [item["product_id"] for item in cb_volume_sorted_data[-3:]]
     cb_los_prices = [item["price"] for item in cb_volume_sorted_data[-3:]]
     cb_los_changes = [cut(float(item["price_percentage_change_24h"])) for item in cb_volume_sorted_data[-3:]]
     cb_los_vols = [format_number(float(item['volume_24h']) * float(item['price'])) for item in
-                  cb_volume_sorted_data[-3:]]
+                   cb_volume_sorted_data[-3:]]
     cb_los_vols.reverse()
     # cb hike/drop
     cb_filterred_hike_1 = [item for item in data_coinbase['products'] if item["quote_currency_id"].endswith("USDT")]
@@ -177,19 +176,20 @@ def main():
     okex_gain_names = [item["instId"] for item in okex_volume_sorted_data[:3]]
     okex_gain_prices = [format_number(cut(float(item["last"]))) for item in okex_volume_sorted_data[:3]]
     okex_gain_changes = [cut((float(item['last']) / float(item['open24h']) * 100 - 100)) for item in
-                        okex_volume_sorted_data[:3]]
+                         okex_volume_sorted_data[:3]]
     okex_gain_vols = [format_number(float(item['volCcy24h'])) for item in okex_volume_sorted_data[:3]]
     okex_los_names = [item["instId"] for item in okex_volume_sorted_data[-3:]]
     okex_los_prices = [float(item["last"]) for item in okex_volume_sorted_data[-3:]]
     okex_los_changes = [cut((float(item['last']) / float(item['open24h']) * 100 - 100)) for item in
-                       okex_volume_sorted_data[-3:]]
+                        okex_volume_sorted_data[-3:]]
     okex_los_vols = [format_number(float(item['volCcy24h'])) for item in okex_volume_sorted_data[-3:]]
     okex_los_vols.reverse()
     # okex hike/drop
     okex_filterred_hike_1 = [item for item in data_okex['data'] if item["instId"].endswith("USDT")]
     okex_filterred_hike_2 = [item for item in okex_filterred_hike_1 if float(item['last']) > 0]
 
-    okex_change_sorted_data = sorted(okex_filterred_hike_2, key=lambda x: float(round((float(x['last']) / float(x['open24h']) * 100 - 100), 2)),
+    okex_change_sorted_data = sorted(okex_filterred_hike_2, key=lambda x: float(
+        round((float(x['last']) / float(x['open24h']) * 100 - 100), 2)),
                                      reverse=True)
     okex_hike_names = [item["instId"][:-5] for item in okex_change_sorted_data[:3]]
     okex_hike_price_changes = [cut((float(item['last']) / float(item['open24h']) * 100 - 100)) for item in
@@ -201,17 +201,17 @@ def main():
 
     for cap_value in range(3):
         binance_hike_cap[cap_value] = format_number(get_cap_cmc(binance_hike_names[cap_value]))
-        binance_drop_cap[cap_value] =  format_number(get_cap_cmc(binance_drop_names[cap_value]))
-        cb_hike_cap[cap_value] =  format_number(get_cap_cmc(cb_hike_names[cap_value]))
-        cb_drop_cap[cap_value] =  format_number(get_cap_cmc(cb_drop_names[cap_value]))
-        okex_hike_cap[cap_value] =  format_number(get_cap_cmc(okex_hike_names[cap_value]))
-        okex_drop_cap[cap_value] =  format_number(get_cap_cmc(okex_drop_names[cap_value]))
+        binance_drop_cap[cap_value] = format_number(get_cap_cmc(binance_drop_names[cap_value]))
+        cb_hike_cap[cap_value] = format_number(get_cap_cmc(cb_hike_names[cap_value]))
+        cb_drop_cap[cap_value] = format_number(get_cap_cmc(cb_drop_names[cap_value]))
+        okex_hike_cap[cap_value] = format_number(get_cap_cmc(okex_hike_names[cap_value]))
+        okex_drop_cap[cap_value] = format_number(get_cap_cmc(okex_drop_names[cap_value]))
 
     top3 = ''
     temp_variable_for_tops = ''
     for top3_value in range(3):
         top3 += f"<li>{top_names[top3_value]} - {top_volumes_24h[top3_value]}%</li>"
-        temp_variable_for_tops+= f"{top_names[top3_value]} - {top_volumes_24h[top3_value]}%, "
+        temp_variable_for_tops += f"{top_names[top3_value]} - {top_volumes_24h[top3_value]}%, "
 
     binance_gain_text = ''
     binance_los_text = ''
@@ -240,8 +240,7 @@ def main():
     news_5 = fetch_crypto_news(news, 5)
     news_text = ''
 
-
-    for news_value in range (len(news_5)):
+    for news_value in range(len(news_5)):
         news_text += news_5[news_value]
 
     for gain_los in range(3):
@@ -293,6 +292,7 @@ def main():
     date = str(datetime.today())[:10]
     date_2 = datetime.strptime(date, '%Y-%m-%d')
     full_date = date_2.strftime('%B %d %Y')
+
     def create_preview():
 
         def get_text_dimensions(text_string, font):
@@ -335,6 +335,7 @@ def main():
         date.text((50, 730), date_text, font=font_date, fill='white', align='left')
 
         return background.save('pics/generated_preview.jpg')
+
     create_preview()
 
     head_static = 'Every day we look through the data from the biggest crypto exchanges to collect the most important stat about cryptos'
@@ -353,21 +354,24 @@ def main():
     drop_promt = f'briefly сomment on top price drops {binance_drop_names[0]} {binance_drop_price_changes[0]} {cb_drop_names[0]} {cb_drop_price_changes[0]} {okex_drop_names[0]} {okex_drop_price_changes[0]}'
     drop_text = open_ai.generate_title(drop_promt)
 
-
     title_promt = f'Write a headline, without time and dates and with all coin percentages, that will indicate that trading on a crypto exchange closed with the values of such coins - {temp_variable_for_tops}.'
     title = open_ai.generate_title(title_promt)
     text_all = create_text('text')
 
-    lst1 = [head_text, top3, gainers_text, binance_gain_text, cb_gain_text, okex_gain_text, hike_text, binance_hike_text, cb_hike_text, okex_hike_text,losers_text,
-            binance_los_text, cb_los_text, okex_los_text, drop_text, binance_drop_text, cb_drop_text, okex_drop_text, news_text]
+    lst1 = [head_text, top3, gainers_text, binance_gain_text, cb_gain_text, okex_gain_text, hike_text,
+            binance_hike_text, cb_hike_text, okex_hike_text, losers_text,
+            binance_los_text, cb_los_text, okex_los_text, drop_text, binance_drop_text, cb_drop_text, okex_drop_text,
+            news_text]
 
-    lst2 = ['{head_text}', '{top3}', '{gainers_text}', '{binance_gain_text}', '{cb_gain_text}', '{okex_gain_text}', '{hike_text}', '{binance_hike_text}', '{cb_hike_text}', '{okex_hike_text}', '{losers_text}',
-            '{binance_los_text}', '{cb_los_text}', '{okex_los_text}', '{drop_text}', '{binance_drop_text}', '{cb_drop_text}', '{okex_drop_text}', '{news_text}']
+    lst2 = ['{head_text}', '{top3}', '{gainers_text}', '{binance_gain_text}', '{cb_gain_text}', '{okex_gain_text}',
+            '{hike_text}', '{binance_hike_text}', '{cb_hike_text}', '{okex_hike_text}', '{losers_text}',
+            '{binance_los_text}', '{cb_los_text}', '{okex_los_text}', '{drop_text}', '{binance_drop_text}',
+            '{cb_drop_text}', '{okex_drop_text}', '{news_text}']
 
     for i in range(len(lst1)):
         if lst2[i] in text_all:
             text_all = text_all.replace(lst2[i], str(lst1[i]))
-        
+
     print('Text created')
     pic = 'pics/generated_preview.jpg'
     # pic = 'https://www.colorado.edu/ecenter/sites/default/files/styles/medium/public/article-thumbnail/cryptocurrency.png?itok=HHvIzV6z'
@@ -381,5 +385,6 @@ def main():
     # print(cb_hike_price_changes)
     # print(okex_hike_price_changes)
     push_post(title, text_all, pic)
+
 
 main()
