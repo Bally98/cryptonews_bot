@@ -1,6 +1,6 @@
 import openai
 
-openai.api_key = "s0k-suCxili3xGY9ulJ3JZenT3BlbkFJRHJbQjeYSl9SZXqMFnKz"
+openai.api_key = "***************"
 
 
 class GptAi():
